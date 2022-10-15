@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/home/controller/home_controller.dart';
+import 'package:hotel_book/app/hotels/controller/hotel_controller.dart';
 import 'package:hotel_book/app/login/controller/login.dart';
 import 'package:hotel_book/app/signup/controller/signup.dart';
 import 'package:hotel_book/app/widgets/bottomnav.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => HomeProvider(),
+        ),
+         ChangeNotifierProvider(
+          create: (context) => HotelController(),
         ),
       ],
       child: MaterialApp(

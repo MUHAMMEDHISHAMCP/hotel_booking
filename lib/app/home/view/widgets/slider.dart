@@ -16,10 +16,7 @@ class SilderWidget extends StatelessWidget {
                     // width: double.infinity,height: MediaQuery.of(context).size.height/3,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        item,
-                        fit: BoxFit.cover,
-                      ),
+                      child: Image.asset('assets/offerbanner.png')
                     ),
                   ),
                 ))
@@ -33,7 +30,7 @@ class SilderWidget extends StatelessWidget {
 }
 
 final List<String> curouselImageList = [
-  'https://static.vecteezy.com/system/resources/thumbnails/004/903/181/small/japanese-food-background-banner-vector.jpg',
-  'https://static.vecteezy.com/system/resources/thumbnails/004/903/181/small/japanese-food-background-banner-vector.jpg',
-  'https://static.vecteezy.com/system/resources/thumbnails/004/903/181/small/japanese-food-background-banner-vector.jpg'
+  'assets/offerbanner.png',
+  // 'https://static.vecteezy.com/system/resources/thumbnails/004/903/181/small/japanese-food-background-banner-vector.jpg',
+  // 'https://static.vecteezy.com/system/resources/thumbnails/004/903/181/small/japanese-food-background-banner-vector.jpg'
 ];

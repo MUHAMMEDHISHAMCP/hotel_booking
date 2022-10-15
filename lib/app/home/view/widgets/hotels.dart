@@ -31,6 +31,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:hotel_book/app/hotels/view/hotel_details.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/widgets/maintitle.dart';
 
@@ -44,26 +45,38 @@ class HotelLists extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         return SizedBox(
-          child: Column(
-            children: [
-              Image.asset('assets/hotelroom.png',height: MediaQuery.of(context).size.height/5,),
-              MainTitle(
-                text: 'Navarathna',
-                fontSize: 20,
-                color: kBlack,
-                weight: FontWeight.bold,
-              ),
-                        MainTitle(
-                text: 'Thalassery',
-                fontSize: 15,
-                color: kBlack,
-                weight: FontWeight.w400,
-              ),
-            ],
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => HotelDetails(),
+                ),
+              );
+            },
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/hotelroom.png',
+                  height: MediaQuery.of(context).size.height / 5,
+                ),
+                const MainTitle(
+                  text: 'Navarathna',
+                  fontSize: 20,
+                  color: kBlack,
+                  weight: FontWeight.bold,
+                ),
+                const MainTitle(
+                  text: 'Thalassery',
+                  fontSize: 15,
+                  color: kBlack,
+                  weight: FontWeight.w400,
+                ),
+              ],
+            ),
           ),
         );
       },
-      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         childAspectRatio: MediaQuery.of(context).size.width /
             (MediaQuery.of(context).size.height / 1.8),
         crossAxisCount: 2,

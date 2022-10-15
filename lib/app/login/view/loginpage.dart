@@ -78,23 +78,24 @@ class LogInScreen extends StatelessWidget {
                           width: 220,
                           height: 40,
                           child: Consumer<SignInController>(
-                            builder: (context, val, child) => ElevatedButton(
-                              onPressed: () {
-                              
-                                val.logIn(context);
-                                // value.formKey.currentState!.validate();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(150, 30),
-                                primary: const Color.fromRGBO(47, 173, 103, 1),
-                              ),
-                              child: val.isLoading == true
-                                  ? const CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color: subColor,
-                                    )
-                                  : const Text('Sign In'),
-                            ),
+                            builder: (context, val, child) => val.isLoading ==
+                                    true
+                                ? const CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: mainColor,
+                                  )
+                                : ElevatedButton(
+                                    onPressed: () {
+                                      val.logIn(context);
+                                      // value.formKey.currentState!.validate();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(150, 30),
+                                      primary:
+                                          const Color.fromRGBO(47, 173, 103, 1),
+                                    ),
+                                    child: const Text('Sign In'),
+                                  ),
                           ),
                         ),
                         kHeight30,
@@ -108,13 +109,11 @@ class LogInScreen extends StatelessWidget {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) => const SignUpScreen(),
-                                  
                                   ),
                                 );
                                 value.emailController.clear();
                                 value.passwordController.clear();
                               },
-                              
                               child: const Text('Sign Up'),
                             ),
                           ],
