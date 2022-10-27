@@ -48,7 +48,7 @@ class HotelDetails extends StatelessWidget {
                 bottomRight: Radius.circular(20)),
             child: Image.asset('assets/hoteldetails.png'),
           ),
-          kHeight20,
+          kHeight15,
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -64,7 +64,7 @@ class HotelDetails extends StatelessWidget {
                   fontSize: 16,
                   weight: FontWeight.w300,
                 ),
-                kHeight20,
+                kheight10,
                 const MainTitle(
                   text: 'Description',
                   fontSize: 16,
@@ -75,7 +75,7 @@ class HotelDetails extends StatelessWidget {
                   'dsaklkewuhdsjo  ygfe dsau9afds9c8yfds afdsag c98yafdscxcbxzl8efawscgudxpawfsdcxjydsu 8ydfshcuhpwfdash8eadscu8xhhraefuhsdci 8dashchadschyuci ',
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
                 ),
-                kHeight20,
+                kHeight15,
                 const MainTitle(
                   text: 'Booking',
                   fontSize: 18,
@@ -124,26 +124,28 @@ class HotelDetails extends StatelessWidget {
           kHeight30,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: SizedBox(
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {
-                  // value.formKey.currentState!.validate();
-                },
-                style: ElevatedButton.styleFrom(primary: kBlack),
-                child: const MainTitle(
-                  text: 'Add to wishlist',
-                  fontSize: 20,
-                  color: subColor,
-                  weight: FontWeight.w400,
+            child: Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                   height: 35,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // value.formKey.currentState!.validate();
+                    },
+                    style: ElevatedButton.styleFrom(primary: kBlack),
+                    child: const MainTitle(
+                      text: 'Add to wishlist',
+                      fontSize: 20,
+                      color: subColor,
+                      weight: FontWeight.w400,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 50,
+                kheight10,
+                SizedBox(
+                  width: double.infinity,
+               height: 35,
               child: ElevatedButton(
                 onPressed: () {
                   // value.formKey.currentState!.validate();
@@ -159,7 +161,10 @@ class HotelDetails extends StatelessWidget {
                 ),
               ),
             ),
+              ],
+            ),
           ),
+          
         ],
       ),
     );

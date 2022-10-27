@@ -32,7 +32,7 @@ class FavouriteScreen extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             color: Colors.grey.shade200,
             child: SizedBox(
-              height: MediaQuery.of(context).size.height / 7,
+              height: MediaQuery.of(context).size.height / 6,
               child: ListTile(
                 leading: SizedBox(
                   child: Image.asset('assets/homestay.png'),

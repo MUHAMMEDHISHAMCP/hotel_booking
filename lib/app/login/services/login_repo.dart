@@ -11,7 +11,7 @@ class LoginRepo {
 
     try {
       final response =
-          await dio.post(Url.logIn, data: data.tojson());
+          await dio.post(Url.logIn, data: data.toJson());
       log(response.data.toString());
       if (response.statusCode! >= 200 || response.statusCode! <= 299) {
         return LoginResponse.fromJson(response.data);

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_book/app/mobile_otp/controller/mobile_controller.dart';
 import 'package:hotel_book/app/signup/model/signup_model.dart';
 import 'package:hotel_book/app/signup/services/signup_services.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/widgets/bottomnav.dart';
 import 'package:hotel_book/app/widgets/snackbar.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpController extends ChangeNotifier {
@@ -22,20 +24,23 @@ class SignUpController extends ChangeNotifier {
     notifyListeners();
   }
 
-  signUp(context) async {
+ void signUp(context) async {
+    final mobNo = Provider.of<MobileNoController>(context,listen: false);
+    print(mobNo.mobNoController.text);
+    print(emailController.text);
     if (formKey.currentState!.validate()) {
       isLoading = true;
       notifyListeners();
       final SignUpModel userDatas = SignUpModel(
-        userName: userNameController.text,
+        name: userNameController.text,
         email: emailController.text,
         password: passwordController.text,
-        confirmPassword: confirmController.text,
-        role: "ROLE_USER",
+        phone: mobNo.mobNoController.text,
+        // confirmPassword: confirmController.text,
       );
       SignUpResponse response = await SignUpServices().singnUpRepo(userDatas);
 
-      if (response.message == "true") {
+      if (response.created == true) {
         final pref = await SharedPreferences.getInstance();
         await pref.setBool('saveValue', true);
         Navigator.of(context).pushAndRemoveUntil(

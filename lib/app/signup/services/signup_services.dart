@@ -11,7 +11,7 @@ class SignUpServices {
     try {
       // print('object');
       final response = await dio
-          .post(Url.signUp, data: data.tojson())
+          .post(Url.signUp, data: data.toJson())
           .then((value) => value);
       log(response.data.toString());
       if (response.statusCode! >= 200 || response.statusCode! <= 299) {

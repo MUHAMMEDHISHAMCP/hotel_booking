@@ -36,6 +36,7 @@ dependencies:
   internet_connection_checker: null
   provider: ^6.0.4
   shared_preferences: ^2.0.15
+  pinput: ^2.2.12
 
 dev_dependencies:
   flutter_lints: ^2.0.0

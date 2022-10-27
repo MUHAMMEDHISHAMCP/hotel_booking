@@ -1,36 +1,38 @@
-
-
 class SignUpModel {
-  String userName;
-  String email;
-  String password;
-  String confirmPassword;
-  String role;
+  final String? name;
+  final String? phone;
+  final String? email;
+  final String? password;
 
-  SignUpModel(
-      {required this.userName,
-      required this.email,
-      required this.password,
-      required this.confirmPassword,
-      required this.role});
+  SignUpModel({
+    required this.name,
+    required this.phone,
+    required this.email,
+    required this.password,
+  });
 
-  Map<String, dynamic> tojson() => {
-        "name": userName,
+  Map<String, dynamic>? toJson() => {
+        "name": name,
+        "phone": phone,
         "email": email,
         "password": password,
-        "confirmPassword": confirmPassword,
-        "role": role
       };
 }
 
 class SignUpResponse {
   String? message;
-  String? id;
+  bool? created;
+  String? jwtKey;
 
-  SignUpResponse({this.message, this.id});
+  SignUpResponse({
+    this.message,
+    this.created,
+    this.jwtKey,
+  });
 
   factory SignUpResponse.fromJson(Map<String, dynamic> json) => SignUpResponse(
-        message: json["message"] ?? '',
-        id: json["userId"] ?? '',
+        message: json["message"] ?? "",
+        created: json["created"] ?? false,
+        jwtKey: json["jwt_key"] ?? "",
       );
 }

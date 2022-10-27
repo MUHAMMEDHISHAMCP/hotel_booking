@@ -1,24 +1,34 @@
 
 class LoginModel {
-  String email;
-  String paassword;
+  final String email;
+  final String password;
 
-  LoginModel({required this.email, required this.paassword});
+  LoginModel({
+    required this.email,
+    required this.password,
+  });
 
-  Map<String, dynamic> tojson() => {
-        "email": email,
-        "password": paassword,
+  Map<String, dynamic> toJson() => {
+        "username": email,
+        "password": password,
       };
 }
 
 class LoginResponse {
+   LoginResponse({
+    this.message,
+    this.created,
+    this.jwtKey,
+  });
+
   String? message;
-  String? token;
+  bool? created;
+  String? jwtKey;
 
-  LoginResponse({this.token, this.message});
-
-  factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
-        message: json["message"] ?? '',
-        token: json["token"] ?? '',
+  factory LoginResponse.fromJson(Map<String, dynamic> json) =>
+      LoginResponse(
+        message: json["message"] ?? "",
+        created: json["created"] ?? false,
+        jwtKey: json["jwt_key"] ?? ""
       );
 }

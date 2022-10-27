@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_book/app/login/view/loginpage.dart';
 import 'package:hotel_book/app/signup/controller/signup.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
@@ -96,7 +97,6 @@ class SignUpScreen extends StatelessWidget {
                             return  ElevatedButton(
                               onPressed: () {
                              //   value.formKey.currentState!.validate();
-                             val.formKey.currentState!.validate();
                               val.signUp(context);
                               // value.dispose();
                               },
@@ -114,20 +114,20 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         ),
                         kHeight20,
-                        const GoogleSign(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('ALREADY ON ACCOUNT?'),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
+                        // const GoogleSign(),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     const Text('ALREADY ON ACCOUNT?'),
+                        //     TextButton(
+                        //       onPressed: () {
+                        //         Navigator.pop(context);
                               
-                              },
-                              child: const Text('Sign In'),
-                            ),
-                          ],
-                        ),
+                        //       },
+                        //       child: const Text('Sign In'),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     );
                   },
@@ -137,6 +137,27 @@ class SignUpScreen extends StatelessWidget {
           ),
         ],
       ),
+      //    floatingActionButton: Row(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     kwidth10,
+      //     const Text('ALREADY ON ACCOUNT?'),
+      //     TextButton(
+      //       onPressed: () {
+      //         Navigator.of(context).pushAndRemoveUntil(
+      //           MaterialPageRoute(
+      //             builder: (context) => const LogInScreen(),
+      //           ),
+      //           (route) => false,
+      //         );
+      //         // value.emailController.clear();
+      //         // value.passwordController.clear();
+      //       },
+      //       child: const Text('Sign In'),
+      //     ),
+      //   ],
+      // ),
+      // resizeToAvoidBottomInset: false,
     );
   }
 }

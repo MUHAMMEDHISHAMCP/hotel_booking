@@ -6,6 +6,7 @@ import 'package:hotel_book/app/login/services/login_repo.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/widgets/bottomnav.dart';
 import 'package:hotel_book/app/widgets/snackbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInController extends ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -13,22 +14,22 @@ class SignInController extends ChangeNotifier {
   final emailController = TextEditingController();
   bool isLoading = false;
 
-  logIn(context) async {
+  void logIn(context) async {
     if (formKey.currentState!.validate()) {
-      isLoading =true;
+      isLoading = true;
       notifyListeners();
       LoginModel userData = LoginModel(
         email: emailController.text,
-        paassword: passwordController.text,
+        password: passwordController.text,
       );
       // print(emailController.text);
       // print(passwordController.text);
 
       LoginResponse? response = await LoginRepo().loginService(userData);
-    
-      if (response!.message == "true") {
-        // final pref = await SharedPreferences.getInstance();
-        // await pref.setBool('saveValue', true);
+
+      if (response!.created == true) {
+        final pref = await SharedPreferences.getInstance();
+        await pref.setBool('saveValue', true);
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (context) => const BottomNav(),
@@ -37,11 +38,11 @@ class SignInController extends ChangeNotifier {
         ScaffoldMessenger.of(context).showSnackBar(
           ShowDialogs.popUp('Sign In Succesfully', mainColor),
         );
-        isLoading =false;
+        isLoading = false;
         notifyListeners();
       } else {
         log(response.message.toString());
-        isLoading =false;
+        isLoading = false;
         notifyListeners();
         ScaffoldMessenger.of(context).showSnackBar(
           ShowDialogs.popUp(

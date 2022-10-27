@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/login/controller/login.dart';
-import 'package:hotel_book/app/signup/view/signup.dart';
+import 'package:hotel_book/app/mobile_otp/view/mobile.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
 import 'package:hotel_book/app/widgets/clipper.dart';
@@ -99,25 +99,26 @@ class LogInScreen extends StatelessWidget {
                           ),
                         ),
                         kHeight30,
-                        const GoogleSign(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('DONT HAVE AN ACCOUNT?'),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const SignUpScreen(),
-                                  ),
-                                );
-                                value.emailController.clear();
-                                value.passwordController.clear();
-                              },
-                              child: const Text('Sign Up'),
-                            ),
-                          ],
-                        ),
+                        // const GoogleSign(),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     const Text('DONT HAVE AN ACCOUNT?'),
+                        //     TextButton(
+                        //       onPressed: () {
+                        //         Navigator.of(context).push(
+                        //           MaterialPageRoute(
+                        //             builder: (context) =>
+                        //                 const MobileNoScreen(),
+                        //           ),
+                        //         );
+                        //         value.emailController.clear();
+                        //         value.passwordController.clear();
+                        //       },
+                        //       child: const Text('Sign Up'),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   );
@@ -127,6 +128,26 @@ class LogInScreen extends StatelessWidget {
           ),
         ],
       ),
+          floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          kwidth10,
+          const Text('DONT HAVE AN ACCOUNT?'),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const MobileNoScreen(),
+                ),
+              );
+              // value.emailController.clear();
+              // value.passwordController.clear();
+            },
+            child: const Text('Sign Up'),
+          ),
+        ],
+      ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
