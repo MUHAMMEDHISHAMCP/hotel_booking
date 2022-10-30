@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:hotel_book/app/signup/model/signup_model.dart';
@@ -24,13 +26,27 @@ class SignUpServices {
       // if (e.response!.statusCode == 401) {
       //   return SignUpResponse(message: 'Something went wrong ');
       // }
-      if (e.response?.data == DioErrorType.connectTimeout) {
-        return SignUpResponse(message: 'Connection TimeOut');
-      } else {
-        return SignUpResponse(message: 'No Internet !!');
+     if (e.response!.statusCode == 401) {
+        return SignUpResponse(message: 'Mobile Number Not valid');
+      }
+      if (e.type == DioErrorType.connectTimeout) {
+        return SignUpResponse(message: 'No internet Connection');
+      }
+      if (e.type == DioErrorType.response) {
+        return SignUpResponse(message:e.response!.data["message"]);
+      }
+      if (e.type == DioErrorType.other) {
+        return SignUpResponse(message: 'Something went wrong');
+      }
+      if (e is SocketException) {
+        return SignUpResponse(message: "Bad Internet Connection");
+      }
+      if (e is TimeoutException) {
+        return SignUpResponse(message: "Connection Timeout");
       }
     } catch (e) {
       return SignUpResponse(message: e.toString());
     }
+    return SignUpResponse(message: "Something Went wrong");
   }
 }

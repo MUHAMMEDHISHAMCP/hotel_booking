@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_book/app/login/view/loginpage.dart';
 import 'package:hotel_book/app/signup/controller/signup.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
 import 'package:hotel_book/app/widgets/clipper.dart';
-import 'package:hotel_book/app/widgets/googlesign.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatelessWidget {

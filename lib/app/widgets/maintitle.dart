@@ -7,11 +7,15 @@ class MainTitle extends StatelessWidget {
     required this.fontSize,
     this.color = Colors.black,
     this.weight = FontWeight.w200,
+    this.overflow = TextOverflow.ellipsis,
+    this.lines = 1
   }) : super(key: key);
   final String text;
   final Color color;
   final double fontSize;
   final FontWeight  weight;
+  final TextOverflow overflow;
+  final int lines;
   @override
   Widget build(BuildContext context) {
     return  Text(
@@ -21,8 +25,11 @@ class MainTitle extends StatelessWidget {
         fontSize: fontSize,
         color: color,
         fontWeight: weight,
+        
       ),
       textAlign: TextAlign.center,
+      overflow: overflow,
+      maxLines:lines ,
     );
   }
 }

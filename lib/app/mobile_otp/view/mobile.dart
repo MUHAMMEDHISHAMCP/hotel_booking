@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/login/view/loginpage.dart';
 import 'package:hotel_book/app/mobile_otp/controller/mobile_controller.dart';
-import 'package:hotel_book/app/mobile_otp/controller/mobile_controller.dart';
-import 'package:hotel_book/app/signup/view/signup.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
 import 'package:hotel_book/app/widgets/maintitle.dart';
@@ -18,7 +16,7 @@ class MobileNoScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
-          key: mobileController.formKey,
+          key: mobileController.key,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

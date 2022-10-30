@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/mobile_otp/controller/mobile_controller.dart';
+import 'package:hotel_book/app/mobile_otp/controller/mobile_otp_controller.dart';
 import 'package:hotel_book/app/signup/model/signup_model.dart';
 import 'package:hotel_book/app/signup/services/signup_services.dart';
 import 'package:hotel_book/app/utils/colors.dart';
@@ -24,10 +25,12 @@ class SignUpController extends ChangeNotifier {
     notifyListeners();
   }
 
- void signUp(context) async {
-    final mobNo = Provider.of<MobileNoController>(context,listen: false);
-    print(mobNo.mobNoController.text);
-    print(emailController.text);
+  void signUp(context) async {
+    final mobNo = Provider.of<MobileNoController>(context, listen: false);
+    final mobOtp = Provider.of<MobOtpController>(context, listen: false);
+
+    // print(mobNo.mobNoController.text);
+    // print(emailController.text);
     if (formKey.currentState!.validate()) {
       isLoading = true;
       notifyListeners();
@@ -36,7 +39,6 @@ class SignUpController extends ChangeNotifier {
         email: emailController.text,
         password: passwordController.text,
         phone: mobNo.mobNoController.text,
-        // confirmPassword: confirmController.text,
       );
       SignUpResponse response = await SignUpServices().singnUpRepo(userDatas);
 
@@ -50,10 +52,11 @@ class SignUpController extends ChangeNotifier {
             (route) => false);
         ScaffoldMessenger.of(context)
             .showSnackBar(ShowDialogs.popUp('Sign Up Succesfully', mainColor));
-
+        mobNo.mobNoController.clear();
+        mobOtp.mobOtpController.clear();
         isLoading = false;
         notifyListeners();
-      } else if (response.message != "true") {
+      } else if (response.created != true) {
         ScaffoldMessenger.of(context).showSnackBar(
           ShowDialogs.popUp(
             '${response.message}',

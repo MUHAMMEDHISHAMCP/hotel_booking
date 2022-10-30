@@ -38,6 +38,8 @@ class SignInController extends ChangeNotifier {
         ScaffoldMessenger.of(context).showSnackBar(
           ShowDialogs.popUp('Sign In Succesfully', mainColor),
         );
+        emailController.clear();
+        passwordController.clear();
         isLoading = false;
         notifyListeners();
       } else {

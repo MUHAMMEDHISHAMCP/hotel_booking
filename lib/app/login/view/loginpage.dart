@@ -4,7 +4,6 @@ import 'package:hotel_book/app/mobile_otp/view/mobile.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
 import 'package:hotel_book/app/widgets/clipper.dart';
-import 'package:hotel_book/app/widgets/googlesign.dart';
 import 'package:provider/provider.dart';
 
 class LogInScreen extends StatelessWidget {
@@ -48,6 +47,7 @@ class LogInScreen extends StatelessWidget {
                   return Form(
                     key: value.formKey,
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         kHeight30,
                         TextFormField(
@@ -128,7 +128,7 @@ class LogInScreen extends StatelessWidget {
           ),
         ],
       ),
-          floatingActionButton: Row(
+          floatingActionButton:  Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           kwidth10,
@@ -148,6 +148,8 @@ class LogInScreen extends StatelessWidget {
         ],
       ),
       resizeToAvoidBottomInset: false,
+      
+    //  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

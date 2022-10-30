@@ -9,14 +9,14 @@ import 'package:hotel_book/app/widgets/snackbar.dart';
 
 class MobileNoController extends ChangeNotifier {
   final mobNoController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> key = GlobalKey<FormState>();
 
   bool isLoading = false;
   String? id;
   String hash ="";
 
  void mobileSignIn(context) async {
-    if (formKey.currentState!.validate()) {
+    if (key.currentState!.validate()) {
       isLoading =true;
       notifyListeners();
       MobNoModel userNumber = MobNoModel(

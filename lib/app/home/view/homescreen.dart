@@ -58,12 +58,12 @@ class HomeScreen extends StatelessWidget {
                           selected: prov.type == 'All' ? true : false,
                         ),
                         ChoiceChipWidget(
-                          text: 'HomeStay',
+                          text: 'Resorts',
                           textStyle: const TextStyle(color: kBlack),
                           onClick: (bool value) {
-                            prov.setState('HomeStay');
+                            prov.setState('Resorts');
                           },
-                          selected: prov.type == 'HomeStay' ? true : false,
+                          selected: prov.type == 'Resorts' ? true : false,
                         ),
                         ChoiceChipWidget(
                           text: 'Hotels',
