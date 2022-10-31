@@ -8,7 +8,8 @@ class MainTitle extends StatelessWidget {
     this.color = Colors.black,
     this.weight = FontWeight.w200,
     this.overflow = TextOverflow.ellipsis,
-    this.lines = 1
+    this.lines = 1,
+    this.align = TextAlign.center
   }) : super(key: key);
   final String text;
   final Color color;
@@ -16,6 +17,7 @@ class MainTitle extends StatelessWidget {
   final FontWeight  weight;
   final TextOverflow overflow;
   final int lines;
+  final TextAlign align;
   @override
   Widget build(BuildContext context) {
     return  Text(
@@ -27,7 +29,7 @@ class MainTitle extends StatelessWidget {
         fontWeight: weight,
         
       ),
-      textAlign: TextAlign.center,
+      textAlign: align,
       overflow: overflow,
       maxLines:lines ,
     );

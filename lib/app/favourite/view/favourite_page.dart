@@ -21,7 +21,7 @@ class FavouriteScreen extends StatelessWidget {
             fontSize: 22,
             color: kBlack,
             weight: FontWeight.w500,
-          )),
+          ),),
       backgroundColor: backgroundColor,
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),

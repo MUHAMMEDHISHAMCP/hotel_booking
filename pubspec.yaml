@@ -33,7 +33,7 @@ dependencies:
   dio: ^4.0.6
   flutter:
     sdk: flutter
-  internet_connection_checker: null
+  internet_connection_checker: 
   provider: ^6.0.4
   shared_preferences: ^2.0.15
   pinput: ^2.2.12

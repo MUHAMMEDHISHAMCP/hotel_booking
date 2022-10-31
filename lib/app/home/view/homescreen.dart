@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                   kheight10,
                   const SearchField(),
                   kheight10,
-                  const SilderWidget(),
+               //    SilderWidget(image: 'https://res.cloudinary.com/dzbo5pjhd/image/upload/v1666685014/hotelbooking/Sharafudheen/Delux%20super/bcscqvfwkgc7dtaawc3a.jpg',ratio: 2.2,),
                   kheight10,
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),

@@ -70,8 +70,11 @@ class CartScreen extends StatelessWidget {
             ),
             itemCount: 10,
           ),
-          const TotalWidget(),
+     //     const TotalWidget(),
         ],
+      ),
+      floatingActionButton: SizedBox(
+        child: ElevatedButton(onPressed: (){}, child: Text('cc')),
       ),
     );
   }

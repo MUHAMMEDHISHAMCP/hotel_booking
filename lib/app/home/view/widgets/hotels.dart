@@ -46,48 +46,55 @@ class HotelLists extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(
       builder: (context, value, child) {
-        return GridView.builder(
+        return value.isLoading == false ? GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
             final roomList = value.allRooms[index];
             // print(roomList.images?.[0]);
-            return SizedBox(
+            return  SizedBox(
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => HotelDetails(
                         hotels: roomList,
+                        // index: index,
                       ),
                     ),
                   );
                 },
-                child: Column(
-                  children: [
-                    // Image.network(
-                    //   roomList.images,
-                    //   height: MediaQuery.of(context).size.height / 5,
-                    // ),
-             value.isLoading == true ? const CircularProgressIndicator(strokeWidth: 2,):       Image(
-                      image:  NetworkImage(roomList.images?.first[0].url ?? ''),
-                    ),
-                    kHeight5,
-                    MainTitle(
-                      text: roomList.roomName ?? 'room',
-                      fontSize: 20,
-                      color: kBlack,
-                      weight: FontWeight.bold,
-                    ),
-
-                    MainTitle(
-                      text: roomList.property!.street ?? '',
-                      fontSize: 15,
-                      color: kBlack,
-                      weight: FontWeight.w400,
-                    ),
-                  ],
-                ),
+                child: Consumer<HomeProvider>(builder: (context, val, child) {
+                  return val.allRooms.isEmpty
+                      ? const CircularProgressIndicator(
+                          strokeWidth: 2,
+                        )
+                      : Column(
+                          children: [
+                            Image(
+                              image: NetworkImage(
+                                  roomList.images?.first[0].url ?? ''),
+                            ),
+                            kHeight5,
+                        val.isLoading == true
+                      ? const CircularProgressIndicator(
+                          strokeWidth: 2,
+                        )
+                      :     MainTitle(
+                              text: roomList.roomName ?? 'room',
+                              fontSize: 20,
+                              color: kBlack,
+                              weight: FontWeight.bold,
+                            ),
+                            MainTitle(
+                              text: roomList.property!.street ?? '',
+                              fontSize: 15,
+                              color: kBlack,
+                              weight: FontWeight.w400,
+                            ),
+                          ],
+                        );
+                }),
               ),
             );
           },
@@ -99,7 +106,7 @@ class HotelLists extends StatelessWidget {
             crossAxisSpacing: 8,
           ),
           itemCount: value.allRooms.length,
-        );
+        ): CircleAvatar();
       },
     );
   }

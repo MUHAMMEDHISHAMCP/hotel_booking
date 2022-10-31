@@ -16,35 +16,36 @@ class HomeProvider extends ChangeNotifier {
     _type = value;
     notifyListeners();
   }
-HomeProvider(){
-  getAllRooms();
-}
+
+  HomeProvider() {
+    getAllRooms();
+  }
   void getAllRooms() async {
-    if (await InternetCheck.interNetCheck()) {
       isLoading = true;
       notifyListeners();
-
       AllRoomResponse? roomList = await AllRoomRepo().allRoomServices();
-
       if (roomList == null) {
         // ScaffoldMessenger.of(context).showSnackBar(
-        //   ShowDialogs.popUp('Something Went Wrong', Colors.redAccent),
+           ShowDialogs.popUp('Something Went Wrong', Colors.redAccent);
         // );
       } else if (roomList.isFailed == true) {
+        isLoading = false;
+        notifyListeners();
         // ScaffoldMessenger.of(context).showSnackBar(
-        //   ShowDialogs.popUp('Something Went Wrong', Colors.redAccent),
+           ShowDialogs.popUp('Something Went Wrong', Colors.redAccent);
         // );
+
       } else if (roomList.isFailed != true) {
         allRooms.clear();
         allRooms.addAll(roomList.roomList ?? []);
-        isLoading =false;
+        isLoading = false;
         notifyListeners();
       } else {
         return;
       }
-    } else {
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //     ShowDialogs.popUp('No Internet Connection', Colors.redAccent));
-    }
+    // } else {
+    //   // ScaffoldMessenger.of(context).showSnackBar(
+    //        ShowDialogs.popUp('No Internet Connection', Colors.redAccent);
+    // }
   }
 }
