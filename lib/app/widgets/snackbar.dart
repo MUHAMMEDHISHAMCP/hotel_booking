@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ShowDialogs {
-
-  // bottom snackbar widget 
-  static SnackBar popUp(String messege,[Color color = Colors.red]) {
-
+  static SnackBar popUp(String messege, [Color color = Colors.red]) {
     return SnackBar(
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
         duration: const Duration(seconds: 1),
         behavior: SnackBarBehavior.floating,
-        backgroundColor:  color,
+        backgroundColor: color,
         margin: const EdgeInsets.all(10),
         content: Padding(
           padding: const EdgeInsets.symmetric(vertical: 6),
@@ -21,6 +21,4 @@ class ShowDialogs {
           ),
         ));
   }
-
-  // center aligned dialog box widget
 }

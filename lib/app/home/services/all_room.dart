@@ -50,6 +50,7 @@ class AllRoomRepo{
    
     catch (e) {
      return AllRoomResponse(erMsg: e.toString());
+     
    }
    return null;
   }

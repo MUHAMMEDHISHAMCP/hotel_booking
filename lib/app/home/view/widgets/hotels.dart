@@ -39,74 +39,126 @@ import 'package:hotel_book/app/widgets/maintitle.dart';
 import 'package:provider/provider.dart';
 
 class HotelLists extends StatelessWidget {
-  const HotelLists({
+  const 
+  HotelLists({
     Key? key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(
       builder: (context, value, child) {
-        return value.isLoading == false ? GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-            final roomList = value.allRooms[index];
-            // print(roomList.images?.[0]);
-            return  SizedBox(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => HotelDetails(
-                        hotels: roomList,
-                        // index: index,
-                      ),
+        return value.isLoading == true || value.allRooms.isEmpty
+            ? GridView.builder(
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    shape:  const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            ),
+                          ),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 120,
+                          color: Colors.grey.shade300,
+                        ),
+                        kHeight5,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 25,
+                            color: Colors.grey.shade300,
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 },
-                child: Consumer<HomeProvider>(builder: (context, val, child) {
-                  return val.allRooms.isEmpty
-                      ? const CircularProgressIndicator(
-                          strokeWidth: 2,
-                        )
-                      : Column(
-                          children: [
-                            Image(
-                              image: NetworkImage(
-                                  roomList.images?.first[0].url ?? ''),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: MediaQuery.of(context).size.width /
+                      (MediaQuery.of(context).size.height / 1.8),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                ),
+                itemCount: 6,
+              )
+            : GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  final roomList = value.allRooms[index];
+                  // print(roomList.images?.[0]);
+                  return SizedBox(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => HotelDetails(
+                              hotels: roomList,
+                              // index: index,
                             ),
-                            kHeight5,
-                        val.isLoading == true
-                      ? const CircularProgressIndicator(
-                          strokeWidth: 2,
-                        )
-                      :     MainTitle(
-                              text: roomList.roomName ?? 'room',
-                              fontSize: 20,
-                              color: kBlack,
-                              weight: FontWeight.bold,
-                            ),
-                            MainTitle(
-                              text: roomList.property!.street ?? '',
-                              fontSize: 15,
-                              color: kBlack,
-                              weight: FontWeight.w400,
-                            ),
-                          ],
+                          ),
                         );
-                }),
-              ),
-            );
-          },
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: MediaQuery.of(context).size.width /
-                (MediaQuery.of(context).size.height / 1.8),
-            crossAxisCount: 2,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-          ),
-          itemCount: value.allRooms.length,
-        ): CircleAvatar();
+                      },
+                      child: Consumer<HomeProvider>(
+                          builder: (context, val, child) {
+                        return Card(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            ),
+                          ),
+                          elevation: 3,
+                          child: Column(
+                            children: [
+                              // decoration: BoxDecoration(
+                              //   image: DecorationImage(image:  NetworkImage(
+                              //           roomList.images?.first[0].url ?? ''),)
+                              // ),
+                              Container(
+                                decoration:
+                                    BoxDecoration(color: Colors.grey.shade300),
+                                height: 120,
+                                child: Image(
+                                  image: NetworkImage(
+                                      roomList.images!.first[0].url ?? ''),
+                                ),
+                              ),
+
+                              kheight10,
+                              MainTitle(
+                                text: roomList.roomName ?? 'Name not Available',
+                                fontSize: 20,
+                                color: kBlack,
+                                weight: FontWeight.bold,
+                              ),
+                              MainTitle(
+                                text: roomList.property!.street ??
+                                    'Place not available',
+                                fontSize: 15,
+                                color: kBlack,
+                                weight: FontWeight.w400,
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                    ),
+                  );
+                },
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: MediaQuery.of(context).size.width /
+                      (MediaQuery.of(context).size.height / 1.7),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 10,
+                ),
+                itemCount: value.allRooms.length,
+              );
       },
     );
   }

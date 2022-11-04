@@ -128,7 +128,7 @@ class LogInScreen extends StatelessWidget {
           ),
         ],
       ),
-          floatingActionButton:  Row(
+        bottomSheet:  Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           kwidth10,
@@ -147,8 +147,7 @@ class LogInScreen extends StatelessWidget {
           ),
         ],
       ),
-      resizeToAvoidBottomInset: false,
-      
+      resizeToAvoidBottomInset: true,
     //  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

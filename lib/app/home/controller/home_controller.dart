@@ -8,7 +8,7 @@ class HomeProvider extends ChangeNotifier {
   List<AllRoomsModel> allRooms = [];
   bool isLoading = false;
 
-  String _type = "All";
+  String _type = "Hotels";
   bool isClicked = false;
   get type => _type;
 
@@ -21,18 +21,19 @@ class HomeProvider extends ChangeNotifier {
     getAllRooms();
   }
   void getAllRooms() async {
+    if (await InternetCheck.interNetCheck()) {
       isLoading = true;
       notifyListeners();
       AllRoomResponse? roomList = await AllRoomRepo().allRoomServices();
       if (roomList == null) {
         // ScaffoldMessenger.of(context).showSnackBar(
-           ShowDialogs.popUp('Something Went Wrong', Colors.redAccent);
+        ShowDialogs.popUp('Something Went Wrong', Colors.redAccent);
         // );
       } else if (roomList.isFailed == true) {
         isLoading = false;
         notifyListeners();
         // ScaffoldMessenger.of(context).showSnackBar(
-           ShowDialogs.popUp('Something Went Wrong', Colors.redAccent);
+        ShowDialogs.popUp('Something Went Wrong', Colors.redAccent);
         // );
 
       } else if (roomList.isFailed != true) {
@@ -43,9 +44,9 @@ class HomeProvider extends ChangeNotifier {
       } else {
         return;
       }
-    // } else {
-    //   // ScaffoldMessenger.of(context).showSnackBar(
-    //        ShowDialogs.popUp('No Internet Connection', Colors.redAccent);
-    // }
+    } else {
+      // ScaffoldMessenger.of(context).showSnackBar(
+      ShowDialogs.popUp('No Internet Connection', Colors.redAccent);
+    }
   }
 }

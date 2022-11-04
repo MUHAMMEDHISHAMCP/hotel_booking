@@ -27,24 +27,24 @@ class SplashScreen extends StatelessWidget {
               'assets/fhlogo.png',
               height: MediaQuery.of(context).size.height / 4.5,
             ),
-            DefaultTextStyle(
-              style: const TextStyle(
-                  fontSize: 30.0,
-                  fontFamily: 'Mainfont',
-                  letterSpacing: 2,
-                  fontWeight: FontWeight.w400),
-              child: AnimatedTextKit(
-                totalRepeatCount: 1,
-                animatedTexts: [
-                  TypewriterAnimatedText(
-                    'FOODHUB',
-                    speed: const Duration(milliseconds: 230),
-                    cursor: '',
-                    curve: Curves.easeOut,
-                  ),
-                ],
-              ),
-            ),
+            // DefaultTextStyle(
+            //   style: const TextStyle(
+            //       fontSize: 30.0,
+            //       fontFamily: 'Mainfont',
+            //       letterSpacing: 2,
+            //       fontWeight: FontWeight.w400),
+            //   child: AnimatedTextKit(
+            //     totalRepeatCount: 1,
+            //     animatedTexts: [
+            //       TypewriterAnimatedText(
+            //         'FOODHUB',
+            //         speed: const Duration(milliseconds: 230),
+            //         cursor: '',
+            //         curve: Curves.easeOut,
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
