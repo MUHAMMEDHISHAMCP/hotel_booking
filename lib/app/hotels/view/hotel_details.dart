@@ -1,40 +1,36 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_book/app/cart/view/widgets/order.dart';
-import 'package:hotel_book/app/home/controller/home_controller.dart';
 import 'package:hotel_book/app/home/model/room_model.dart';
-import 'package:hotel_book/app/home/view/widgets/choice_chip.dart';
 import 'package:hotel_book/app/hotels/controller/hotel_controller.dart';
+import 'package:hotel_book/app/hotels/view/widgets/book_room.dart';
+import 'package:hotel_book/app/hotels/view/widgets/icon_widgets.dart';
 import 'package:hotel_book/app/hotels/view/widgets/more_detials.dart';
-import 'package:hotel_book/app/hotels/view/widgets/odrer.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
 import 'package:hotel_book/app/widgets/maintitle.dart';
 import 'package:provider/provider.dart';
 
 class HotelDetails extends StatelessWidget {
-  HotelDetails({Key? key, required this.hotels,})
-      : super(key: key);
+  HotelDetails({
+    Key? key,
+    required this.hotels,
+  }) : super(key: key);
   final AllRoomsModel hotels;
-
+  PageController controller = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final prov = Provider.of<HomeProvider>(context);
+    final prov = Provider.of<HotelController>(context);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: NestedScrollView(
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverAppBar(
+          const SliverAppBar(
+            iconTheme: IconThemeData(color: kBlack),
             floating: true,
-            leading: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: kBlack,
-                )),
             backgroundColor: backgroundColor,
-            title: const MainTitle(
+            title: MainTitle(
               text: 'Room Details',
               fontSize: 22,
               color: kBlack,
@@ -44,48 +40,63 @@ class HotelDetails extends StatelessWidget {
         ],
         body: ListView(
           shrinkWrap: true,
-           physics: const BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height/2.5,
+              height: MediaQuery.of(context).size.height / 2.5,
               child: PageView.builder(
-              //  pageSnapping: false,
+                physics: const BouncingScrollPhysics(),
+                controller: controller,
                 itemCount: hotels.images!.first.length,
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => 
-                 Stack(
+                itemBuilder: (context, index) => Stack(
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: ClipRRect(
                         borderRadius: const BorderRadius.all(
                           Radius.circular(15),
-                          // bottomLeft: Radius.circular(20),
-                          // bottomRight: Radius.circular(20)
                         ),
-                        child: prov.isLoading == true ?CircularProgressIndicator(): Image(
-                          image: NetworkImage(
-                            hotels.images!.first[index].url.toString(),
+                        child: CachedNetworkImage(
+                          imageUrl: hotels.images!.first[index].url.toString(),
+                          placeholder: (context, url) => const Image(
+                            image: AssetImage('assets/placeholder.png'),
                           ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error_outline_outlined),
                         ),
                       ),
                     ),
+                   
                     Positioned(
-                      right: 30,
-                      bottom: 30,
-                      child: CircleAvatar(
-                        radius: 20,
-                        backgroundColor: kBlack,
-                        child: Center(
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.favorite_border_sharp,
-                              color: subColor,
-                              size: 25,
-                            ),
-                          ),
-                        ),
+                        right: 30,
+                        bottom: 30,
+                        child: IconWidgets(
+                          icon: Icons.favorite_outline,
+                          onTap: () {},
+                        )),
+                    Positioned(
+                      right: 11,
+                      top: MediaQuery.of(context).size.height / 6.5,
+                      child: IconWidgets(
+                        icon: Icons.arrow_forward,
+                        onTap: () {
+                          controller.nextPage(
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.bounceOut);
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      left: 10,
+                      top: MediaQuery.of(context).size.height / 6.5,
+                      child: IconWidgets(
+                        icon: Icons.arrow_back,
+                        onTap: () {
+                          controller.previousPage(
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.bounceIn);
+                        },
                       ),
                     ),
                   ],
@@ -129,21 +140,16 @@ class HotelDetails extends StatelessWidget {
                           text: hotels.property!.address ??
                               'Address Not Available',
                           fontSize: 16,
-                          weight: FontWeight.w300,
+                          weight: FontWeight.w400,
                           lines: 4,
                           align: TextAlign.start,
                         ),
                       ),
-                      // const MainTitle(
-                      //   text: 'Daily',
-                      //   fontSize: 16,
-                      //   weight: FontWeight.w300,
-                      // )
+                      
                       SizedBox(
                         // width: 100,
                         child: TextButton(
                           onPressed: () {
-                            print(hotels.images);
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => MoreDetails(
@@ -246,8 +252,7 @@ class HotelDetails extends StatelessWidget {
                               weight: FontWeight.w400,
                             ),
                             MainTitle(
-                              text: hotels.checkinTime ??
-                                  'Time not available',
+                              text: hotels.checkinTime ?? 'Time not available',
                               fontSize: 15,
                               weight: FontWeight.w400,
                             ),
@@ -265,8 +270,7 @@ class HotelDetails extends StatelessWidget {
                               weight: FontWeight.w400,
                             ),
                             MainTitle(
-                              text: hotels.checkoutTime ??
-                                  'Time not available',
+                              text: hotels.checkoutTime ?? 'Time not available',
                               fontSize: 15,
                               color: kBlack,
                               weight: FontWeight.w400,
@@ -277,124 +281,6 @@ class HotelDetails extends StatelessWidget {
                     ),
                   ),
                   kHeight15,
-                  // const MainTitle(
-                  //   text: 'Booking',
-                  //   fontSize: 18,
-                  //   weight: FontWeight.bold,
-                  // ),
-                  // kheight10,
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     ChoiceChipWidget(
-                  //       text: 'Today',
-                  //       textStyle: const TextStyle(color: kBlack),
-                  //       onClick: (value) {
-                  //         prov.setState('Today');
-                  //         prov.updatedDate = null;
-                  //       },
-                  //       selected: prov.type == 'Today' ? true : false,
-                  //     ),
-                  //     ChoiceChipWidget(
-                  //       text: 'Tomorrow',
-                  //       textStyle: const TextStyle(color: kBlack),
-                  //       onClick: (value) {
-                  //         prov.setState('Tomorrow');
-                  //         prov.updatedDate = null;
-                  //       },
-                  //       selected: prov.type == 'Tomorrow' ? true : false,
-                  //     ),
-                  //     ChoiceChipWidget(
-                  //       text: prov.updatedDate == null
-                  //           ? 'Pre Booking'
-                  //           : '  ${prov.updatedDate?.day} - '
-                  //               '${prov.updatedDate?.month} - '
-                  //               '${prov.updatedDate?.year}',
-                  //       textStyle: const TextStyle(color: kBlack),
-                  //       onClick: (value) {
-                  //         prov.setState('datePick');
-                  //         prov.selectDate(context);
-                  //       },
-                  //       selected: prov.updatedDate == null
-                  //           ? false
-                  //           : prov.type == 'datePick'
-                  //               ? true
-                  //               : false,
-                  //     ),
-                  //   ],
-                  // ),
-                  // kHeight5,
-                  // const MainTitle(
-                  //   text: 'Advance Booking',
-                  //   fontSize: 20,
-                  //   weight: FontWeight.bold,
-                  // ),
-                  // kHeight15,
-                  //     IntrinsicHeight(
-                  //       child: Row(
-                  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //         children: [
-                  //           InkWell(
-                  //             onTap: () {
-                  //               prov.startingDate(context);
-                  //             },
-                  //             child: Column(
-                  //               children: [
-                  //                 const MainTitle(
-                  //                   text: 'From',
-                  //                   fontSize: 14,
-                  //                   weight: FontWeight.w300,
-                  //                 ),
-                  //                 MainTitle(
-                  //                   text: prov.startDate == null
-                  //                       ? 'Select a date'
-                  //                       : '${prov.startDate?.day} - '
-                  //                           '${prov.startDate?.month} - '
-                  //                           '${prov.startDate?.year}',
-                  //                   fontSize: 15,
-                  //                   weight: FontWeight.bold,
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //           ),
-                  //           //  MainTitle(
-                  //           //   text: prov.startDate == null ? '':'to',
-                  //           //   fontSize: 15,
-                  //           //   color: kBlack,
-                  //           //   weight: FontWeight.bold,
-                  //           // ),
-                  //           const VerticalDivider(
-                  //             thickness: 2,
-                  //           ),
-                  //           GestureDetector(
-                  //             onTap: () {
-                  //               prov.endingDate(context);
-                  //             },
-                  //             child: prov.startDate == null
-                  //                 ? const SizedBox()
-                  //                 : Column(
-                  //                     children: [
-                  //                       const MainTitle(
-                  //                         text: 'To',
-                  //                         fontSize: 14,
-                  //                         weight: FontWeight.w300,
-                  //                       ),
-                  //                       MainTitle(
-                  //                         text: prov.endDate == null
-                  //                             ? 'Select a date'
-                  //                             : '${prov.endDate?.day} - '
-                  //                                 '${prov.endDate?.month} - '
-                  //                                 '${prov.endDate?.year}',
-                  //                         fontSize: 15,
-                  //                         color: kBlack,
-                  //                         weight: FontWeight.bold,
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     )
                 ],
               ),
             ),
@@ -402,18 +288,41 @@ class HotelDetails extends StatelessWidget {
           ],
         ),
       ),
-    bottomSheet: GestureDetector(
-      child: Container(
-        height: 50,
-    width: double.infinity,
-           decoration: const BoxDecoration(
-            color: mainColor,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20))),
-                child:const Center(child: MainTitle(text: 'Book Now', fontSize:20,align: TextAlign.center,weight: FontWeight.w700,)),
+      bottomSheet: GestureDetector(
+        onTap: () {
+          prov.startDate = null;
+          prov.endDate = null;
+          prov.updatedDate = null;
+          prov.c = 1;
+          showModalBottomSheet(
+            context: context,
+            builder: (ctx) =>  BookingRoom(rooms: hotels,),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            clipBehavior: Clip.hardEdge,
+            elevation: 4,
+            isScrollControlled: true,
+          );
+        },
+        child: Container(
+          height: 50,
+          width: double.infinity,
+          decoration: const BoxDecoration(
+              color: mainColor,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          child: const Center(
+              child: MainTitle(
+            text: 'Book Now',
+            fontSize: 20,
+            align: TextAlign.center,
+            weight: FontWeight.w700,
+          )),
+        ),
       ),
-    ),
     );
   }
 }

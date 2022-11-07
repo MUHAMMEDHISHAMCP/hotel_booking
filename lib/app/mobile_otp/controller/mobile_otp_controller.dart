@@ -36,7 +36,6 @@ void otpVerification(context, mobNo, id) async {
       isLoading = false;
       notifyListeners();
     } else {
-      print(mobOtpController.text);
       log(response.message.toString());
       isLoading = false;
       notifyListeners();

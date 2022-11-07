@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ShowDialogs {
-  static SnackBar popUp(String messege, [Color color = Colors.red]) {
-    return SnackBar(
+  static final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
+
+  static popUp(String messege, [Color color = Colors.red]) {
+    scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
+    scaffoldMessengerKey.currentState?.showSnackBar(
+      SnackBar(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10),
@@ -19,6 +24,8 @@ class ShowDialogs {
             style: const TextStyle(
                 letterSpacing: 2, fontWeight: FontWeight.w500, fontSize: 16),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -18,15 +18,10 @@ class MoreDetails extends StatelessWidget {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverAppBar(
-            leading: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: kBlack,
-                )),
+        const  SliverAppBar(
+            iconTheme: IconThemeData(color: kBlack),
             backgroundColor: backgroundColor,
-            title: const MainTitle(
+            title:  MainTitle(
               text: 'More Details',
               fontSize: 22,
               color: kBlack,
@@ -44,9 +39,9 @@ class MoreDetails extends StatelessWidget {
                 ratio: 1.6,
                 autoPlay: true,
               ),
-
+          
               // List.generate(4, (index) => SilderWidget(image: image) )
-
+          
               kheight10,
               Padding(
                 padding: const EdgeInsets.all(8.0),

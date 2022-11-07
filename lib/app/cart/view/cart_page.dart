@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_book/app/cart/view/widgets/order.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/widgets/maintitle.dart';
 
@@ -74,7 +73,7 @@ class CartScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: SizedBox(
-        child: ElevatedButton(onPressed: (){}, child: Text('cc')),
+        child: ElevatedButton(onPressed: (){}, child: const Text('cc')),
       ),
     );
   }

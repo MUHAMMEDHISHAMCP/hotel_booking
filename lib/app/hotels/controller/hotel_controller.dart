@@ -4,71 +4,54 @@ class HotelController extends ChangeNotifier {
   DateTime? updatedDate;
   DateTime? startDate;
   DateTime? endDate;
-  String _type = "All";
+  DateTime todayDate = DateTime.now();
+  DateTime tmrwDate = DateTime.now().add(const Duration(days: 1));
+  int? days;
+  int c = 0;
+
+  String _type = "Today";
   bool isClicked = false;
   get type => _type;
 
-  setState(value) {
+  void setState(value) {
     _type = value;
-    notifyListeners();
-  }
-
-  selectDate(context) async {
-    final tempDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(const Duration(days: 30 * 2)));
-    if (tempDate == null) {
-      return;
+    if (startDate != null) {
+      _type = 'false';
     }
-
-    updatedDate = tempDate;
-    // startDate = tempDate;
-    // endDate = tempDate;
     notifyListeners();
   }
 
-  startingDate(context) async {
-    final tempDate = await showDatePicker(
+  void bookingDate(context) async {
+    final bookingDate = await showDateRangePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDateRange: DateTimeRange(
+        start: DateTime.now(),
+        end: DateTime.now().add(
+          const Duration(days: 1),
+        ),
+      ),
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(
-        const Duration(days: 30 * 2),
+        const Duration(days: 30),
       ),
+      helpText: 'Select booking dates',
+      cancelText: 'Cancel',
+      confirmText: 'Confirm',
+      initialEntryMode: DatePickerEntryMode.calendar,
     );
-    if (tempDate == null) {
+
+    if (bookingDate == null) {
       return;
     }
-
-    // updatedDate = tempDate;
-    startDate = tempDate;
-    // endDate =tempDate;
+    startDate = bookingDate.start;
+    endDate = bookingDate.end;
+    c = bookingDate.end.day - bookingDate.start.day;
     notifyListeners();
-  }
-
-  void endingDate(context) async {
-    if (startDate != null) {
-      final tempDate = await showDatePicker(
-        context: context,
-        initialDate: startDate!.add(
-          const Duration(days: 2),
-        ),
-        firstDate: startDate!.add(
-          const Duration(days: 2),
-        ),
-        lastDate: startDate!.add(
-          const Duration(days: 15),
-        ),
-      );
-      if (tempDate == null) {
-        return;
-      }
-
-      endDate = tempDate;
+    if (c <= 0) {
+      c = c+30;
       notifyListeners();
     }
+    print(c);
   }
   // final tempDate = await showDatePicker(
   //     context: context,

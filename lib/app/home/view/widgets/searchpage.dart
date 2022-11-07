@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hotel_book/app/home/controller/search_controller.dart';
-import 'package:hotel_book/app/home/view/widgets/search.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
 import 'package:hotel_book/app/widgets/maintitle.dart';
@@ -45,18 +44,19 @@ class SearchResult extends StatelessWidget {
                     builder: (context, value, child) => LimitedBox(
                       maxHeight: MediaQuery.of(context).size.height / 3,
                       child: ListView.separated(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          final list = value.searchResult[index];
-                          return value.searchResult.isEmpty
-                              ? const Center(
-                                  child: MainTitle(
-                                    text: 'No result',
-                                    fontSize: 100,
-                                    color: kBlack,
-                                  ),
-                                )
-                              : SizedBox(
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                final list = value.searchResult[index];
+                                return  value.searchResult.isEmpty
+                          ? const Center(
+                              child: MainTitle(
+                                text: 'No results',
+                                fontSize: 25,
+                                color: kBlack,
+                                weight: FontWeight.bold,
+                              ),
+                            )
+                          : SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height / 3,
                                   child: Card(
@@ -113,10 +113,10 @@ class SearchResult extends StatelessWidget {
                                     ),
                                   ),
                                 );
-                        },
-                        separatorBuilder: (context, index) => kheight10,
-                        itemCount: value.searchResult.length,
-                      ),
+                              },
+                              separatorBuilder: (context, index) => kheight10,
+                              itemCount: value.searchResult.length,
+                            ),
                     ),
                   ),
                 ),

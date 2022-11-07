@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/login/view/loginpage.dart';
 import 'package:hotel_book/app/utils/colors.dart';

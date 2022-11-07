@@ -6,6 +6,8 @@ import 'package:hotel_book/app/widgets/snackbar.dart';
 
 class HomeProvider extends ChangeNotifier {
   List<AllRoomsModel> allRooms = [];
+  List<AllRoomsModel> allHotels = [];
+  List<AllRoomsModel> allResorts = [];
   bool isLoading = false;
 
   String _type = "Hotels";
@@ -28,6 +30,8 @@ class HomeProvider extends ChangeNotifier {
       if (roomList == null) {
         // ScaffoldMessenger.of(context).showSnackBar(
         ShowDialogs.popUp('Something Went Wrong', Colors.redAccent);
+        isLoading = false;
+        notifyListeners();
         // );
       } else if (roomList.isFailed == true) {
         isLoading = false;
@@ -45,8 +49,28 @@ class HomeProvider extends ChangeNotifier {
         return;
       }
     } else {
-      // ScaffoldMessenger.of(context).showSnackBar(
-      ShowDialogs.popUp('No Internet Connection', Colors.redAccent);
+      isLoading = false;
+      notifyListeners();
+ // ScaffoldMessenger.of(context).showSnackBar(
+        ShowDialogs.popUp('it is okay hhhh',);
+    //    );
+    
+    }
+
+    for (var i = 0; i < allRooms.length; i++) {
+      if (allRooms[i].category?.category?.toLowerCase().trim() == 'hotels') {
+        allHotels.add(allRooms[i]);
+        isLoading = false;
+        notifyListeners();
+      }
+    }
+
+    for (var i = 0; i < allRooms.length; i++) {
+      if (allRooms[i].category?.category?.toLowerCase().trim() == 'resorts') {
+        allResorts.add(allRooms[i]);
+        isLoading = false;
+        notifyListeners();
+      }
     }
   }
 }

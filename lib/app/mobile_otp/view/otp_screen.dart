@@ -83,7 +83,6 @@ class OtpScreen extends StatelessWidget {
                     primary: const Color.fromRGBO(47, 173, 103, 1),
                   ),
                   onPressed: () {
-                    print(mobNoController.id);
                     otpController.otpVerification(
                       context,
                       mobNoController.mobNoController.text,

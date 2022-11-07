@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hotel_book/app/home/controller/home_controller.dart';
 import 'package:hotel_book/app/home/model/room_model.dart';
-import 'package:hotel_book/app/home/view/widgets/searchPage.dart';
 import 'package:provider/provider.dart';
 
 class SearchProvider extends ChangeNotifier {
@@ -9,10 +8,9 @@ class SearchProvider extends ChangeNotifier {
   List<AllRoomsModel> searchResult = [];
 
   void search(context) {
-    print(searchController.text);
     final List<AllRoomsModel> list =
         Provider.of<HomeProvider>(context, listen: false).allRooms;
-    if (searchController.text.isEmpty || searchController.text == null) {
+    if (searchController.text.isEmpty) {
     searchResult.clear();
     notifyListeners();
     } else {
@@ -20,18 +18,20 @@ class SearchProvider extends ChangeNotifier {
           .where(
             (element) => element.property!.propertyName!.toUpperCase().contains(
                   searchController.text.toUpperCase(),
-                ),
-          )
-          .toList();
-           final List<AllRoomsModel> rr = list
-          .where(
-            (element) => element.property!.street!.toUpperCase().contains(
+                )||element.property!.street!.toUpperCase().contains(
                   searchController.text.toUpperCase(),
                 ),
           )
           .toList();
+          //  final List<AllRoomsModel> rr = list
+          // .where(
+          //   (element) => element.property!.street!.toUpperCase().contains(
+          //         searchController.text.toUpperCase(),
+          //       ),
+          // )
+          // .toList();
       searchResult.clear();
-      searchResult.addAll(result+rr);
+      searchResult.addAll(result);
       notifyListeners();
       // print(searchResult.length);
       // print(searchResult[1].property!.propertyName);

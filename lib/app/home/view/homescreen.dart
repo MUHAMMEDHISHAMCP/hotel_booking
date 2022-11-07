@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/home/controller/home_controller.dart';
 import 'package:hotel_book/app/home/controller/search_controller.dart';
+import 'package:hotel_book/app/home/view/widgets/all_hotels.dart';
 import 'package:hotel_book/app/home/view/widgets/choice_chip.dart';
 // import 'package:hotel_book/app/home/view/widgets/category.dart';
 import 'package:hotel_book/app/home/view/widgets/location.dart';
-import 'package:hotel_book/app/home/view/widgets/hotels.dart';
+import 'package:hotel_book/app/home/view/widgets/resorts.dart';
 import 'package:hotel_book/app/home/view/widgets/searchPage.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final prov = context.watch<HomeProvider>();
+ 
 
     return SafeArea(
       child: Scaffold(
@@ -45,7 +47,7 @@ class HomeScreen extends StatelessWidget {
 
                       context.read<SearchProvider>().searchResult.clear();
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SearchResult(),
+                        builder: (context) => const SearchResult(),
                       ));
                     },
                     child: Container(
@@ -81,14 +83,7 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // ChoiceChipWidget(
-                        //   text: 'All',
-                        //   textStyle: const TextStyle(color: kBlack),
-                        //   onClick: (bool value) {
-                        //     prov.setState('All');
-                        //   },
-                        //   selected: prov.type == 'All' ? true : false,
-                        // ),
+                    
                         ChoiceChipWidget(
                           text: 'Hotels',
                           textStyle: const TextStyle(color: kBlack),
@@ -134,9 +129,9 @@ class HomeScreen extends StatelessWidget {
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
-                  children: const [
+                  children:  [
                     kheight10,
-                    HotelLists(),
+                 prov.type == 'Hotels'?  const AllHotelLists(): const AllResorts(),
                   ],
                 ),
               )
