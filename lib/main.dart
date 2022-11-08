@@ -29,16 +29,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => HomeProvider(),
         ),
-         ChangeNotifierProvider(
+        ChangeNotifierProvider(
           create: (context) => HotelController(),
         ),
-          ChangeNotifierProvider(
+        ChangeNotifierProvider(
           create: (context) => MobileNoController(),
         ),
-          ChangeNotifierProvider(
+        ChangeNotifierProvider(
           create: (context) => MobOtpController(),
         ),
-           ChangeNotifierProvider(
+        ChangeNotifierProvider(
           create: (context) => SearchProvider(),
         ),
       ],

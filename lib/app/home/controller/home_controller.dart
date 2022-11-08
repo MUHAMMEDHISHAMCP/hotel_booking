@@ -23,7 +23,7 @@ class HomeProvider extends ChangeNotifier {
     getAllRooms();
   }
   void getAllRooms() async {
-    if (await InternetCheck.interNetCheck()) {
+    // if (await InternetCheck.interNetCheck()) {
       isLoading = true;
       notifyListeners();
       AllRoomResponse? roomList = await AllRoomRepo().allRoomServices();
@@ -48,14 +48,14 @@ class HomeProvider extends ChangeNotifier {
       } else {
         return;
       }
-    } else {
-      isLoading = false;
-      notifyListeners();
- // ScaffoldMessenger.of(context).showSnackBar(
-        ShowDialogs.popUp('it is okay hhhh',);
-    //    );
+//     } else {
+//       isLoading = false;
+//       notifyListeners();
+//  // ScaffoldMessenger.of(context).showSnackBar(
+//         ShowDialogs.popUp('it is okay hhhh',);
+//     //    );
     
-    }
+//     }
 
     for (var i = 0; i < allRooms.length; i++) {
       if (allRooms[i].category?.category?.toLowerCase().trim() == 'hotels') {
