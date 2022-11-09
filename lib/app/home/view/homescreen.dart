@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final prov = context.watch<HomeProvider>();
- 
 
     return SafeArea(
       child: Scaffold(
@@ -83,7 +82,6 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                    
                         ChoiceChipWidget(
                           text: 'Hotels',
                           textStyle: const TextStyle(color: kBlack),
@@ -129,9 +127,11 @@ class HomeScreen extends StatelessWidget {
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
-                  children:  [
+                  children: [
                     kheight10,
-                 prov.type == 'Hotels'?  const AllHotelLists(): const AllResorts(),
+                    prov.type == 'Hotels'
+                        ? const AllHotelLists()
+                        : const AllResorts(),
                   ],
                 ),
               )

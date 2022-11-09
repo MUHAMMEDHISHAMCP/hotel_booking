@@ -51,7 +51,7 @@ class SignUpController extends ChangeNotifier {
             ),
             (route) => false);
         ScaffoldMessenger.of(context)
-            .showSnackBar(ShowDialogs.popUp('Sign Up Succesfully', mainColor));
+            .showSnackBar(ShowDialogs.popUp('Sign Up Succesfully', ));
         mobNo.mobNoController.clear();
         mobOtp.mobOtpController.clear();
         isLoading = false;

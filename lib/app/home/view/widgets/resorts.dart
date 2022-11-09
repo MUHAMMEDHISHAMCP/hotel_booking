@@ -12,10 +12,19 @@ class AllResorts extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeProvider>(
+    return  Consumer<HomeProvider>(
       builder: (context, value, child) {
-        return value.isLoading == true
-            ? GridView.builder(
+        return
+         value.allResorts.isEmpty
+                ? const Center(
+                  child: MainTitle(
+                    text: 'Resorts Not Available',
+                    fontSize: 25,
+                    color: mainColor,
+                    weight: FontWeight.bold,
+                  ),
+                ): value.isLoading == true
+            ?  GridView.builder(
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
@@ -51,17 +60,8 @@ class AllResorts extends StatelessWidget {
                   crossAxisSpacing: 8,
                 ),
                 itemCount: 6,
-              )
-            : value.allResorts.isEmpty
-                ? const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: MainTitle(
-                      text: ' Resorts Not Available',
-                      fontSize: 25,
-                      color: mainColor,
-                      weight: FontWeight.bold,
-                    ),
-                  )
+              ) 
+           
                 : GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

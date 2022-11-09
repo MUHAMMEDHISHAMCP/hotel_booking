@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:hotel_book/app/home/model/room_model.dart';
+import 'package:hotel_book/app/services/internet_check.dart';
 import 'package:hotel_book/app/utils/url.dart';
 
 class AllRoomRepo {
@@ -12,7 +13,9 @@ class AllRoomRepo {
   );
 
   Future<AllRoomResponse?> allRoomServices() async {
-    try {
+
+    if (await InternetCheck.checkInternet()) {
+          try {
       final response = await dio.get(Url.getAllRooms);
 
       if (response.statusCode! >= 200 || response.statusCode! <= 299) {
@@ -48,5 +51,9 @@ class AllRoomRepo {
     } catch (e) {
       return AllRoomResponse(erMsg: e.toString());
     }
+  } else {
+    log(e.toString());
+    return AllRoomResponse(erMsg: 'No Internet',isFailed: true);
+  }
   }
 }

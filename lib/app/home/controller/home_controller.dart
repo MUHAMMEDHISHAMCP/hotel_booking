@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/home/model/room_model.dart';
 import 'package:hotel_book/app/home/services/all_room.dart';
-import 'package:hotel_book/app/services/internet_check.dart';
 import 'package:hotel_book/app/widgets/snackbar.dart';
 
 class HomeProvider extends ChangeNotifier {
@@ -29,7 +28,7 @@ class HomeProvider extends ChangeNotifier {
       AllRoomResponse? roomList = await AllRoomRepo().allRoomServices();
       if (roomList == null) {
         // ScaffoldMessenger.of(context).showSnackBar(
-        ShowDialogs.popUp('Something Went Wrong', Colors.redAccent);
+        ShowDialogs.popUp('Something Went Wrong',);
         isLoading = false;
         notifyListeners();
         // );
@@ -37,7 +36,7 @@ class HomeProvider extends ChangeNotifier {
         isLoading = false;
         notifyListeners();
         // ScaffoldMessenger.of(context).showSnackBar(
-        ShowDialogs.popUp('Something Went Wrong', Colors.redAccent);
+        ShowDialogs.popUp(roomList.erMsg ??'Something Went Wrong',);
         // );
 
       } else if (roomList.isFailed != true) {

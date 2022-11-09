@@ -4,6 +4,7 @@ import 'package:hotel_book/app/mobile_otp/view/mobile.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
 import 'package:hotel_book/app/widgets/clipper.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class LogInScreen extends StatelessWidget {
@@ -80,9 +81,11 @@ class LogInScreen extends StatelessWidget {
                           child: Consumer<SignInController>(
                             builder: (context, val, child) => val.isLoading ==
                                     true
-                                ? const CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    color: mainColor,
+                                ? SizedBox(
+                                    height: 150,
+                                    child: Lottie.asset(
+                                      'assets/loading_lottie.json',
+                                    ),
                                   )
                                 : ElevatedButton(
                                     onPressed: () {
@@ -128,7 +131,7 @@ class LogInScreen extends StatelessWidget {
           ),
         ],
       ),
-        bottomSheet:  Row(
+      bottomSheet: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           kwidth10,
@@ -148,7 +151,7 @@ class LogInScreen extends StatelessWidget {
         ],
       ),
       resizeToAvoidBottomInset: true,
-    //  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      //  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
