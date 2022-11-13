@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class AllRoomsModel {
   AllRoomsModel(
       {this.id,
@@ -20,7 +22,8 @@ class AllRoomsModel {
       this.createdAt,
       this.updatedAt,
       this.v,
-      this.message});
+      this.message,
+      this.roomNumber});
 
   String? id;
   Property? property;
@@ -43,6 +46,7 @@ class AllRoomsModel {
   DateTime? updatedAt;
   int? v;
   String? message;
+  int? roomNumber;
 
   factory AllRoomsModel.fromJson(Map<String, dynamic> json) => AllRoomsModel(
         id: json["_id"],
@@ -66,6 +70,7 @@ class AllRoomsModel {
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
+        roomNumber: json["roomNumbers"]
       );
 }
 

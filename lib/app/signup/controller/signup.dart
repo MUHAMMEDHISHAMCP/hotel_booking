@@ -3,7 +3,6 @@ import 'package:hotel_book/app/mobile_otp/controller/mobile_controller.dart';
 import 'package:hotel_book/app/mobile_otp/controller/mobile_otp_controller.dart';
 import 'package:hotel_book/app/signup/model/signup_model.dart';
 import 'package:hotel_book/app/signup/services/signup_services.dart';
-import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/widgets/bottomnav.dart';
 import 'package:hotel_book/app/widgets/snackbar.dart';
 import 'package:provider/provider.dart';

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/home/model/room_model.dart';
-import 'package:hotel_book/app/home/view/widgets/choice_chip.dart';
 import 'package:hotel_book/app/hotels/controller/hotel_controller.dart';
-import 'package:hotel_book/app/hotels/view/widgets/odrer.dart';
+import 'package:hotel_book/app/hotels/controller/room_available.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
 import 'package:hotel_book/app/widgets/maintitle.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class BookingRoom extends StatelessWidget {
@@ -14,7 +14,9 @@ class BookingRoom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final prov = Provider.of<HotelController>(context);
-                      final total = prov.c * rooms.price!.toInt();
+     final roomProv = Provider.of<RoomAvailabilityProvider>(context);
+    final roomTotal = prov.count * rooms.price!.toInt();
+    final total = prov.totalDays * roomTotal;
 
     return Container(
       color: Colors.grey.shade200,
@@ -31,60 +33,13 @@ class BookingRoom extends StatelessWidget {
               weight: FontWeight.bold,
             ),
             kheight10,
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     ChoiceChipWidget(
-            //       text: 'Today',
-            //       textStyle: const TextStyle(color: kBlack),
-            //       onClick: (value) {
-            //         prov.setState('Today');
-            //         prov.startDate = null;
-            //       },
-            //       selected: prov.type == 'Today'  ? true : false
-            //     ),
-            //     ChoiceChipWidget(
-            //       text: 'Tomorrow',
-            //       textStyle: const TextStyle(color: kBlack),
-            //       onClick: (value) {
-            //         prov.setState('Tomorrow');
-            //         prov.startDate = null;
-            //       },
-            //       selected: prov.type == 'Tomorrow' ? true : false,
-            //     ),
-            //     // ChoiceChipWidget(
-            //     //   text: prov.updatedDate == null
-            //     //       ? 'Pre Booking'
-            //     //       : '  ${prov.updatedDate?.day} - '
-            //     //           '${prov.updatedDate?.month} - '
-            //     //           '${prov.updatedDate?.year}',
-            //     //   textStyle: const TextStyle(color: kBlack),
-            //     //   onClick: (value) {
-            //     //     prov.setState('datePick');
-            //     //     prov.selectDate(context);
-            //     //     prov.startDate = null;
-            //     //   },
-            //     //   selected: prov.updatedDate == null
-            //     //       ? false
-            //     //       : prov.type == 'datePick'
-            //     //           ? true
-            //     //           : false,
-            //     // ),
-            //   ],
-            // ),
-            // kheight10,
-            // const MainTitle(
-            //   text: 'Advance Booking',
-            //   fontSize: 20,
-            //   weight: FontWeight.bold,
-            // ),
             kheight10,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
                   onTap: () {
-                  // print(prov.c);
+                    // print(prov.c);
                     prov.bookingDate(context);
                   },
                   child: Row(
@@ -160,7 +115,6 @@ class BookingRoom extends StatelessWidget {
                 ),
               ],
             ),
-
             kheight10,
             const MainTitle(
               text: 'Payment',
@@ -179,7 +133,7 @@ class BookingRoom extends StatelessWidget {
                   weight: FontWeight.w500,
                 ),
                 MainTitle(
-                  text: rooms.price.toString(),
+                  text: " ${prov.count} x ${rooms.price.toString()}",
                   fontSize: 14,
                   align: TextAlign.start,
                   weight: FontWeight.w400,
@@ -197,7 +151,7 @@ class BookingRoom extends StatelessWidget {
                   weight: FontWeight.w500,
                 ),
                 MainTitle(
-                  text:'${prov.c} x ${ rooms.price.toString()}',
+                  text: '${prov.totalDays} x $roomTotal',
                   fontSize: 14,
                   align: TextAlign.start,
                   weight: FontWeight.w400,
@@ -217,7 +171,6 @@ class BookingRoom extends StatelessWidget {
                   align: TextAlign.start,
                   weight: FontWeight.w500,
                 ),
-                
                 MainTitle(
                   text: "₹ ${total.toString()}",
                   fontSize: 18,
@@ -227,33 +180,51 @@ class BookingRoom extends StatelessWidget {
               ],
             ),
             kHeight15,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                SizedBox(
-                  // width: double.infinity,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(150, 30), primary: Colors.red),
-                    child: const Text('Cancel'),
+            Consumer<RoomAvailabilityProvider>(
+              builder: (context, value, child) => 
+              value.isLoading == true ? SizedBox(
+                                    height: 200,
+                                    child: Lottie.asset(
+                                      'assets/loading_lottie.json',
+                                    ),
+                                  )
+                                :  Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    // width: double.infinity,
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(150, 30),
+                          backgroundColor: Colors.red),
+                      child: const Text('Cancel'),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  // width: double.infinity,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(150, 30), primary: mainColor),
-                    child: const Text('Confirm'),
+                  SizedBox(
+                    // width: double.infinity,
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: () {
+                       value.roomAvailabilityCheck(
+                                context,
+                                rooms.id.toString(),
+                                prov.startDate.toString(),
+                                prov.endDate.toString(),
+                                prov.count);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(150, 30),
+                          backgroundColor: mainColor),
+                      child: const Text('Confirm'),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

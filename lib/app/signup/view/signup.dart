@@ -92,22 +92,22 @@ class SignUpScreen extends StatelessWidget {
                           height: 40,
                           child: Consumer<SignUpController>(
                             builder: (context, val, child) {
-                            return  ElevatedButton(
-                              onPressed: () {
-                             //   value.formKey.currentState!.validate();
-                              val.signUp(context);
-                              // value.dispose();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  fixedSize: const Size(150, 30),
-                                  primary: mainColor),
-                              child:  val.isLoading == true
-                                  ? const CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color: subColor,
-                                    )
-                                  : const Text('Sign Up'),
-                            );
+                              return ElevatedButton(
+                                onPressed: () {
+                                  //   value.formKey.currentState!.validate();
+                                  val.signUp(context);
+                                  // value.dispose();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    fixedSize: const Size(150, 30),
+                                    backgroundColor: mainColor),
+                                child: val.isLoading == true
+                                    ? const CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: subColor,
+                                      )
+                                    : const Text('Sign Up'),
+                              );
                             },
                           ),
                         ),
@@ -120,7 +120,7 @@ class SignUpScreen extends StatelessWidget {
                         //     TextButton(
                         //       onPressed: () {
                         //         Navigator.pop(context);
-                              
+
                         //       },
                         //       child: const Text('Sign In'),
                         //     ),

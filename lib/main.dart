@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hotel_book/app/home/controller/home_controller.dart';
 import 'package:hotel_book/app/home/controller/search_controller.dart';
 import 'package:hotel_book/app/hotels/controller/hotel_controller.dart';
+import 'package:hotel_book/app/hotels/controller/room_available.dart';
 import 'package:hotel_book/app/login/controller/login.dart';
 import 'package:hotel_book/app/mobile_otp/controller/mobile_controller.dart';
 import 'package:hotel_book/app/mobile_otp/controller/mobile_otp_controller.dart';
@@ -40,6 +41,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => SearchProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RoomAvailabilityProvider(),
         ),
       ],
       child: MaterialApp(

@@ -11,7 +11,8 @@ class MobileNoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mobileController = Provider.of<MobileNoController>(context,listen: false);
+    final mobileController =
+        Provider.of<MobileNoController>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -46,7 +47,7 @@ class MobileNoScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(150, 40),
-                    primary: const Color.fromRGBO(47, 173, 103, 1),
+                    backgroundColor: const Color.fromRGBO(47, 173, 103, 1),
                   ),
                   child: const MainTitle(
                     text: 'GET OTP',

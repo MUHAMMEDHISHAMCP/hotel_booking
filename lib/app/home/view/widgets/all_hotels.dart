@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/home/controller/home_controller.dart';
+import 'package:hotel_book/app/hotels/controller/hotel_controller.dart';
 import 'package:hotel_book/app/hotels/view/hotel_details.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
@@ -15,7 +16,7 @@ class AllHotelLists extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(
       builder: (context, value, child) {
-        return value.isLoading == true 
+        return    value.isLoading == true 
             ? GridView.builder(
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
@@ -53,7 +54,19 @@ class AllHotelLists extends StatelessWidget {
                 ),
                 itemCount: 6,
               )
-            : GridView.builder(
+            :value.allHotels.isEmpty
+                ?  SizedBox(
+                  height: MediaQuery.of(context).size.height/2,
+                  child: const Center(
+                    child: MainTitle(
+                      text: 'Resorts Not Available',
+                      fontSize: 25,
+                      color: mainColor,
+                      weight: FontWeight.bold,
+                    ),
+                  ),
+                ):
+             GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
@@ -62,11 +75,11 @@ class AllHotelLists extends StatelessWidget {
                   return SizedBox(
                     child: GestureDetector(
                       onTap: () {
+                        context.read<HotelController>().count = 1;
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => HotelDetails(
                               hotels: roomList,
-                              // index: index,
                             ),
                           ),
                         );

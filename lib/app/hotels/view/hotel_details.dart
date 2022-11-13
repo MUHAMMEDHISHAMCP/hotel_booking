@@ -67,7 +67,7 @@ class HotelDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                   
+
                     Positioned(
                         right: 30,
                         bottom: 30,
@@ -75,30 +75,30 @@ class HotelDetails extends StatelessWidget {
                           icon: Icons.favorite_outline,
                           onTap: () {},
                         )),
-                    Positioned(
-                      right: 11,
-                      top: MediaQuery.of(context).size.height / 6.5,
-                      child: IconWidgets(
-                        icon: Icons.arrow_forward,
-                        onTap: () {
-                          controller.nextPage(
-                              duration: const Duration(seconds: 1),
-                              curve: Curves.bounceOut);
-                        },
-                      ),
-                    ),
-                    Positioned(
-                      left: 10,
-                      top: MediaQuery.of(context).size.height / 6.5,
-                      child: IconWidgets(
-                        icon: Icons.arrow_back,
-                        onTap: () {
-                          controller.previousPage(
-                              duration: const Duration(seconds: 1),
-                              curve: Curves.bounceIn);
-                        },
-                      ),
-                    ),
+                    // Positioned(
+                    //   right: 11,
+                    //   top: MediaQuery.of(context).size.height / 6.5,
+                    //   child: IconWidgets(
+                    //     icon: Icons.arrow_forward,
+                    //     onTap: () {
+                    //       controller.nextPage(
+                    //           duration: const Duration(seconds: 1),
+                    //           curve: Curves.bounceOut);
+                    //     },
+                    //   ),
+                    // ),
+                    // Positioned(
+                    //   left: 10,
+                    //   top: MediaQuery.of(context).size.height / 6.5,
+                    //   child: IconWidgets(
+                    //     icon: Icons.arrow_back,
+                    //     onTap: () {
+                    //       controller.previousPage(
+                    //           duration: const Duration(seconds: 1),
+                    //           curve: Curves.bounceIn);
+                    //     },
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -145,7 +145,6 @@ class HotelDetails extends StatelessWidget {
                           align: TextAlign.start,
                         ),
                       ),
-                      
                       SizedBox(
                         // width: 100,
                         child: TextButton(
@@ -165,6 +164,59 @@ class HotelDetails extends StatelessWidget {
                           ),
                         ),
                       )
+                    ],
+                  ),
+                  kHeight5,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      MainTitle(
+                        text: 'Only ${hotels.roomNumber} rooms Available',
+                        fontSize: 15,
+                        color: Colors.red,
+                        weight: FontWeight.w400,
+                      ),
+                      Column(
+                        children: [
+                          const MainTitle(
+                            text: 'No of rooms',
+                            fontSize: 14,
+                            weight: FontWeight.w400,
+                          ),
+                          Container(
+                              height: 40,
+                              // width: MediaQuery.of(context).size.width / 3.5,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black45),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        prov.isIncrement = false;
+
+                                        prov.roomCount(
+                                            hotels.roomNumber!.toInt());
+                                      },
+                                      icon: const Icon(Icons.remove)),
+                                  MainTitle(
+                                    text: '${prov.count}',
+                                    fontSize: 20,
+                                    weight: FontWeight.bold,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        prov.isIncrement = true;
+                                        prov.roomCount(
+                                            hotels.roomNumber!.toInt());
+                                      },
+                                      icon: const Icon(Icons.add))
+                                ],
+                              )),
+                        ],
+                      ),
                     ],
                   ),
                   kheight10,
@@ -290,13 +342,16 @@ class HotelDetails extends StatelessWidget {
       ),
       bottomSheet: GestureDetector(
         onTap: () {
-          prov.startDate = null;
-          prov.endDate = null;
+          prov.startDate = DateTime.now();
+          prov.endDate =  DateTime.now().add(const Duration(days: 1));
           prov.updatedDate = null;
-          prov.c = 1;
+          prov.totalDays = 1;
+          //  prov.count = 1;
           showModalBottomSheet(
             context: context,
-            builder: (ctx) =>  BookingRoom(rooms: hotels,),
+            builder: (ctx) => BookingRoom(
+              rooms: hotels,
+            ),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                 top: Radius.circular(20),

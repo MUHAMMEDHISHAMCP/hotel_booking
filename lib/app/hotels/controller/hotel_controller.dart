@@ -7,7 +7,10 @@ class HotelController extends ChangeNotifier {
   DateTime todayDate = DateTime.now();
   DateTime tmrwDate = DateTime.now().add(const Duration(days: 1));
   int? days;
-  int c = 0;
+  int totalDays = 0;
+  bool isIncrement = true;
+
+  int count = 0;
 
   String _type = "Today";
   bool isClicked = false;
@@ -45,18 +48,36 @@ class HotelController extends ChangeNotifier {
     }
     startDate = bookingDate.start;
     endDate = bookingDate.end;
-    c = bookingDate.end.day - bookingDate.start.day;
+    totalDays = bookingDate.end.day - bookingDate.start.day;
     notifyListeners();
-    if (c <= 0) {
-      c = c+30;
+    if (totalDays <= 0) {
+      totalDays = totalDays + 30;
       notifyListeners();
     }
-    print(c);
   }
+
+  void roomCount(int available) {
+    if (isIncrement == true) {
+      count++;
+      notifyListeners();
+      if (count >= available) {
+        count = available;
+        notifyListeners();
+      }
+      print(count);
+    } else {
+      count--;
+      notifyListeners();
+      if (count <= 0) {
+        count = 1;
+      }
+      print(count);
+    }
+  }
+}
   // final tempDate = await showDatePicker(
   //     context: context,
   //     initialDate: DateTime.now(),
   //     firstDate: DateTime.now(),
   //     lastDate: DateTime.now().add(const Duration(days: 30 * 2)));
 
-}

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/login/controller/login.dart';
 import 'package:hotel_book/app/mobile_otp/view/mobile.dart';
-import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
 import 'package:hotel_book/app/widgets/clipper.dart';
 import 'package:lottie/lottie.dart';
@@ -94,7 +93,7 @@ class LogInScreen extends StatelessWidget {
                                     },
                                     style: ElevatedButton.styleFrom(
                                       fixedSize: const Size(150, 30),
-                                      primary:
+                                      backgroundColor:
                                           const Color.fromRGBO(47, 173, 103, 1),
                                     ),
                                     child: const Text('Sign In'),

@@ -25,9 +25,9 @@ class SignInController extends ChangeNotifier {
       // print(emailController.text);
       // print(passwordController.text);
 
-      LoginResponse? response = await LoginRepo().loginService(userData);
+      LogInResponse? response = await LoginRepo().loginService(userData);
 
-      if (response!.created == true) {
+      if (response!.isSuccess == true) {
         final pref = await SharedPreferences.getInstance();
         await pref.setBool('saveValue', true);
         Navigator.of(context).pushAndRemoveUntil(

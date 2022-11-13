@@ -10,4 +10,5 @@ class Url {
   static const String logIn = 'loginUser';
   static const String signUp = 'userSignup';
   static const String getAllRooms = 'getRoom';
+  static const String isRoomAvailable = 'oneSearch';
 }

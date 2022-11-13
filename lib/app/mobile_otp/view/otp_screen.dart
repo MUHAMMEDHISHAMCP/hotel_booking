@@ -80,7 +80,7 @@ class OtpScreen extends StatelessWidget {
               width: 150,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: const Color.fromRGBO(47, 173, 103, 1),
+                    backgroundColor: const Color.fromRGBO(47, 173, 103, 1),
                   ),
                   onPressed: () {
                     otpController.otpVerification(

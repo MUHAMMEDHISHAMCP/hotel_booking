@@ -16,12 +16,15 @@ class AllResorts extends StatelessWidget {
       builder: (context, value, child) {
         return
          value.allResorts.isEmpty
-                ? const Center(
-                  child: MainTitle(
-                    text: 'Resorts Not Available',
-                    fontSize: 25,
-                    color: mainColor,
-                    weight: FontWeight.bold,
+                ?  SizedBox(
+                  height: MediaQuery.of(context).size.height/2,
+                  child: const Center(
+                    child: MainTitle(
+                      text: 'Resorts Not Available',
+                      fontSize: 25,
+                      color: mainColor,
+                      weight: FontWeight.bold,
+                    ),
                   ),
                 ): value.isLoading == true
             ?  GridView.builder(
