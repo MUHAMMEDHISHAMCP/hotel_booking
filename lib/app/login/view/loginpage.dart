@@ -12,22 +12,23 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Stack(
-            children: [
-              ClipPath(
-                clipper: ClipperWidget(),
-                child: Container(
-                  decoration: const BoxDecoration(
-                      color: Color.fromRGBO(47, 173, 103, 1),
-                      image: DecorationImage(
-                          image: AssetImage('assets/logimg.png'))),
-                  //  color: const Color.fromARGB(255, 66, 236, 72),
-                  height: MediaQuery.of(context).size.height / 2.5,
-                  width: double.infinity,
-                ),
-              ),
+            children: const [
+              // ClipPath(
+              //   clipper: ClipperWidget(),
+              //   child: Container(
+              //     decoration: const BoxDecoration(
+              //         color: Color.fromRGBO(47, 173, 103, 1),
+              //         image: DecorationImage(
+              //             image: AssetImage('assets/logimg.png'))),
+              //     //  color: const Color.fromARGB(255, 66, 236, 72),
+              //     height: MediaQuery.of(context).size.height / 2.5,
+              //     width: double.infinity,
+              //   ),
+              // ),
               // Positioned(
               //   left: MediaQuery.of(context).size.width / 2.5,
               //   top: MediaQuery.of(context).size.width / 2.5,
@@ -149,7 +150,7 @@ class LogInScreen extends StatelessWidget {
           ),
         ],
       ),
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       //  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

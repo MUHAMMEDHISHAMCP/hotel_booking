@@ -8,6 +8,8 @@ import 'package:hotel_book/app/mobile_otp/controller/mobile_controller.dart';
 import 'package:hotel_book/app/mobile_otp/controller/mobile_otp_controller.dart';
 import 'package:hotel_book/app/signup/controller/signup.dart';
 import 'package:hotel_book/app/splash/view/splash_screen.dart';
+import 'package:hotel_book/app/utils/navigations.dart';
+import 'package:hotel_book/app/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -48,7 +50,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(),
+      navigatorKey: Navigations.navigatorKey,
+      scaffoldMessengerKey: ShowDialogs.scaffoldMessengerKey,
+     theme: ThemeData(),
         home: const SplashScreen(),
       ),
     );

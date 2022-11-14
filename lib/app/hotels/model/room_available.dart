@@ -1,20 +1,20 @@
 class RoomAvailableModel {
     RoomAvailableModel({
         this.hotelId,
-        this.startDate,
-        this.endDate,
+       required this.startDate,
+      required this.endDate,
         this.roomsCount,
     });
 
     String? hotelId;
-    String? startDate;
-    String? endDate;
+    DateTime startDate;
+    DateTime endDate;
     int? roomsCount;
 
      Map<String, dynamic> toJson() => {
         "hotelId": hotelId,
-        "startDate": startDate,
-        "endDate": endDate,
+        "startDate": startDate.toIso8601String(),
+        "endDate": endDate.toIso8601String(),
         "roomsCount": roomsCount,
     };
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hotel_book/app/login/model/login.dart';
 import 'package:hotel_book/app/login/services/login_repo.dart';
 import 'package:hotel_book/app/utils/colors.dart';
+import 'package:hotel_book/app/utils/navigations.dart';
 import 'package:hotel_book/app/widgets/bottomnav.dart';
 import 'package:hotel_book/app/widgets/snackbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,11 +31,13 @@ class SignInController extends ChangeNotifier {
       if (response!.isSuccess == true) {
         final pref = await SharedPreferences.getInstance();
         await pref.setBool('saveValue', true);
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => const BottomNav(),
-            ),
-            (route) => false);
+        // Navigator.of(context).pushAndRemoveUntil(
+        //     MaterialPageRoute(
+        //       builder: (context) => const BottomNav(),
+        //     ),
+        //    (route) => false);
+
+        Navigations.pushRemoveUntil(BottomNav);
         ScaffoldMessenger.of(context).showSnackBar(
           ShowDialogs.popUp('Sign In Succesfully', mainColor),
         );

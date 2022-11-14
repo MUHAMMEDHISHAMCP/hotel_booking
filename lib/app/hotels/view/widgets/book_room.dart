@@ -213,8 +213,8 @@ class BookingRoom extends StatelessWidget {
                        value.roomAvailabilityCheck(
                                 context,
                                 rooms.id.toString(),
-                                prov.startDate.toString(),
-                                prov.endDate.toString(),
+                                prov.startDate!,
+                                prov.endDate!,
                                 prov.count);
                       },
                       style: ElevatedButton.styleFrom(
