@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/home/model/room_model.dart';
 import 'package:hotel_book/app/hotels/controller/hotel_controller.dart';
+import 'package:hotel_book/app/hotels/controller/room_available.dart';
 import 'package:hotel_book/app/hotels/view/widgets/book_room.dart';
 import 'package:hotel_book/app/hotels/view/widgets/icon_widgets.dart';
 import 'package:hotel_book/app/hotels/view/widgets/more_detials.dart';
@@ -21,6 +22,7 @@ class HotelDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final prov = Provider.of<HotelController>(context);
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: NestedScrollView(
@@ -170,12 +172,14 @@ class HotelDetails extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      MainTitle(
-                        text: 'Only ${hotels.roomNumber} rooms Available',
-                        fontSize: 15,
-                        color: Colors.red,
-                        weight: FontWeight.w400,
-                      ),
+                      hotels.roomNumber! <= 5
+                          ? MainTitle(
+                              text: 'Only ${hotels.roomNumber} rooms Available',
+                              fontSize: 15,
+                              color: Colors.red,
+                              weight: FontWeight.w400,
+                            )
+                          : const SizedBox(),
                       Column(
                         children: [
                           const MainTitle(
@@ -343,9 +347,11 @@ class HotelDetails extends StatelessWidget {
       bottomSheet: GestureDetector(
         onTap: () {
           prov.startDate = DateTime.now();
-          prov.endDate =  DateTime.now().add(const Duration(days: 1));
+          prov.endDate = DateTime.now().add(const Duration(days: 1));
           prov.updatedDate = null;
           prov.totalDays = 1;
+          context.read<BookingProvider>().isAvailable = false;
+
           //  prov.count = 1;
           showModalBottomSheet(
             context: context,

@@ -4,6 +4,7 @@ import 'package:hotel_book/app/hotels/controller/hotel_controller.dart';
 import 'package:hotel_book/app/hotels/controller/room_available.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
+import 'package:hotel_book/app/utils/navigations.dart';
 import 'package:hotel_book/app/widgets/maintitle.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,6 @@ class BookingRoom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final prov = Provider.of<HotelController>(context);
-     final roomProv = Provider.of<RoomAvailabilityProvider>(context);
     final roomTotal = prov.count * rooms.price!.toInt();
     final total = prov.totalDays * roomTotal;
 
@@ -180,51 +180,54 @@ class BookingRoom extends StatelessWidget {
               ],
             ),
             kHeight15,
-            Consumer<RoomAvailabilityProvider>(
-              builder: (context, value, child) => 
-              value.isLoading == true ? SizedBox(
-                                    height: 200,
-                                    child: Lottie.asset(
-                                      'assets/loading_lottie.json',
-                                    ),
-                                  )
-                                :  Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    // width: double.infinity,
-                    height: 40,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(150, 30),
-                          backgroundColor: Colors.red),
-                      child: const Text('Cancel'),
+            Consumer<BookingProvider>(
+              builder: (context, value, child) => value.isLoading == true
+                  ? SizedBox(
+                      height: 200,
+                      child: Lottie.asset(
+                        'assets/loading_lottie.json',
+                      ),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          // width: double.infinity,
+                          height: 40,
+                          child: ElevatedButton(
+                            onPressed: () {
+                            value.isAvailable == false ?  Navigator.of(context).pop():SizedBox();
+                            },
+                            style: ElevatedButton.styleFrom(
+                                fixedSize: const Size(150, 30),
+                                backgroundColor: Colors.red),
+                            child: value.isAvailable == false
+                                ? const Text('Cancel')
+                                : const Text('Pay at Hotel'),
+                          ),
+                        ),
+                        SizedBox(
+                          // width: double.infinity,
+                          height: 40,
+                          child: ElevatedButton(
+                              onPressed: () {
+                          value.isAvailable == false ?      value.roomAvailabilityCheck(
+                                    context,
+                                    rooms.id.toString(),
+                                    prov.startDate!,
+                                    prov.endDate!,
+                                    prov.count) : Navigations.pop() ;
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(150, 30),
+                                  backgroundColor: mainColor),
+                              child: value.isAvailable == true
+                                  ? const Text('Pay Now')
+                                  : const Text('Confirm')),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    // width: double.infinity,
-                    height: 40,
-                    child: ElevatedButton(
-                      onPressed: () {
-                       value.roomAvailabilityCheck(
-                                context,
-                                rooms.id.toString(),
-                                prov.startDate!,
-                                prov.endDate!,
-                                prov.count);
-                      },
-                      style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(150, 30),
-                          backgroundColor: mainColor),
-                      child: const Text('Confirm'),
-                    ),
-                  ),
-                ],
-              ),
             ),
           ],
         ),

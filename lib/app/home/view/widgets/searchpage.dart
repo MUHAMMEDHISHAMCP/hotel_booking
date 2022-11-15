@@ -55,7 +55,7 @@ class SearchResult extends StatelessWidget {
                               ),
                             )
                           : LimitedBox(
-                              maxHeight: MediaQuery.of(context).size.height / 3,
+                              maxHeight: MediaQuery.of(context).size.height / 1,
                               child: ListView.separated(
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {

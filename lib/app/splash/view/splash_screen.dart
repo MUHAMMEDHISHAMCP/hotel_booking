@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/login/view/loginpage.dart';
 import 'package:hotel_book/app/utils/colors.dart';
+import 'package:hotel_book/app/utils/strings.dart';
 import 'package:hotel_book/app/widgets/bottomnav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,7 +53,7 @@ class SplashScreen extends StatelessWidget {
 
   checkLogIn(context) async {
     final pref = await SharedPreferences.getInstance();
-    final check = pref.getBool('saveValue');
+    final check = pref.getBool(KStrings.isLogggedIn);
 
     if (check == false || check == null) {
       Navigator.of(context).pushReplacement(

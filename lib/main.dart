@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           create: (context) => SearchProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => RoomAvailabilityProvider(),
+          create: (context) => BookingProvider(),
         ),
       ],
       child: MaterialApp(

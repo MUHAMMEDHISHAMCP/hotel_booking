@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:hotel_book/app/hotels/model/room_available.dart';
+import 'package:hotel_book/app/hotels/model/room_availability/room_available.dart';
 import 'package:hotel_book/app/utils/url.dart';
 
 class RoomAvailableService {

@@ -37,23 +37,22 @@ class _BottomNavigationBarState extends State<BottomNav> {
               selectedIndex = newIndex;
             });
           },
-          items:  [
+          items: [
             const BottomNavigationBarItem(
               backgroundColor: subColor,
-              icon:  Icon(Icons.home),
+              icon: Icon(Icons.home),
               label: 'Home',
             ),
-            // const BottomNavigationBarItem(
-            //   icon:  Icon(Icons.shopping_cart_outlined),
-            //   label: 'Cart',
-            // ),
-         BottomNavigationBarItem(
+        
+            BottomNavigationBarItem(
               backgroundColor: subColor,
-              icon:  selectedIndex == 1 ?   const Icon(Icons.favorite): const Icon(Icons.favorite_border),
+              icon: selectedIndex == 1
+                  ? const Icon(Icons.favorite)
+                  : const Icon(Icons.favorite_border),
               label: 'WishList',
             ),
             const BottomNavigationBarItem(
-              icon:  Icon(Icons.account_circle_outlined),
+              icon: Icon(Icons.account_circle_outlined),
               label: 'Account',
             )
           ]),

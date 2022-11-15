@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hotel_book/app/login/controller/login.dart';
 import 'package:hotel_book/app/mobile_otp/view/mobile.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
-import 'package:hotel_book/app/widgets/clipper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -52,7 +51,7 @@ class LogInScreen extends StatelessWidget {
                       children: [
                         kHeight30,
                         TextFormField(
-                          controller: value.emailController,
+                          controller: value.emailOrPhneController,
                           validator: value.emailValidator,
                           decoration: const InputDecoration(
                             hintText: 'E-mail',

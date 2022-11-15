@@ -53,12 +53,12 @@ class AccountScreen extends StatelessWidget {
                 ),
               ),
             ),
-            kheight10,
-            AccountSettings(
-              icon: const Icon(Icons.location_on_sharp),
-              title: 'Saved address',
-              onTap: () {},
-            ),
+             kheight10,
+            // AccountSettings(
+            //   icon: const Icon(Icons.location_on_sharp),
+            //   title: 'Saved address',
+            //   onTap: () {},
+            // ),
 
             AccountSettings(
               icon: const Icon(Icons.notifications),
@@ -68,7 +68,7 @@ class AccountScreen extends StatelessWidget {
 
             AccountSettings(
               icon: const Icon(Icons.card_giftcard_sharp),
-              title: 'My Orders',
+              title: 'My Bookings',
               onTap: () {},
             ),
             // const ListTile(
@@ -105,41 +105,42 @@ class AccountScreen extends StatelessWidget {
   void logOut(context) async {
     final prov = Provider.of<SignInController>(context, listen: false);
     showDialog(
-        context: context,
-        builder: (ctx) {
-          return AlertDialog(
-            title: const Text(
-              'Logout !!',
-              style: TextStyle(color: Colors.red),
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text(
+            'Logout !!',
+            style: TextStyle(color: Colors.red),
+          ),
+          content: const Text('Are you sure to want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text(
+                'No',
+                style: TextStyle(color: mainColor),
+              ),
             ),
-            content: const Text('Are you sure to want to logout?'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-                child: const Text(
-                  'No',
-                  style: TextStyle(color: mainColor),
-                ),
-              ),
-              TextButton(
-                onPressed: () async {
-                  final pref = await SharedPreferences.getInstance();
-                  await pref.clear();
-                  prov.emailController.clear();
-                  prov.passwordController.clear();
+            TextButton(
+              onPressed: () async {
+                final pref = await SharedPreferences.getInstance();
+                await pref.clear();
+                prov.emailOrPhneController.clear();
+                prov.passwordController.clear();
 
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (cx) => const LogInScreen()),
-                      (route) => false);
-                },
-                child: const Text('Yes',
-                    style: TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.bold)),
-              ),
-            ],
-          );
-        });
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (cx) => const LogInScreen()),
+                    (route) => false);
+              },
+              child: const Text('Yes',
+                  style: TextStyle(
+                      color: Colors.red, fontWeight: FontWeight.bold)),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
