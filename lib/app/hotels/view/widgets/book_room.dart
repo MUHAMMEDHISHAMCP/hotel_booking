@@ -15,6 +15,8 @@ class BookingRoom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final prov = Provider.of<HotelController>(context);
+    final roomProvider = Provider.of<BookingProvider>(context);
+
     final roomTotal = prov.count * rooms.price!.toInt();
     final total = prov.totalDays * roomTotal;
 
@@ -27,93 +29,98 @@ class BookingRoom extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             kHeight5,
-            const MainTitle(
-              text: 'Booking',
+            MainTitle(
+              text: roomProvider.isAvailable == false
+                  ? 'Booking'
+                  : 'Room Avilable This days',
               fontSize: 18,
               weight: FontWeight.bold,
             ),
             kheight10,
             kheight10,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () {
-                    // print(prov.c);
-                    prov.bookingDate(context);
-                  },
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.calendar_today_outlined,
-                        color: mainColor,
-                      ),
-                      kwidth5,
-                      Container(
-                        width: MediaQuery.of(context).size.width / 3.5,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black45),
+            Visibility(
+              visible: roomProvider.isAvailable == false,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      // print(prov.c);
+                      prov.bookingDate(context);
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.calendar_today_outlined,
+                          color: mainColor,
                         ),
-                        child: Column(
-                          children: [
-                            const MainTitle(
-                              text: 'From',
-                              fontSize: 14,
-                              weight: FontWeight.bold,
-                            ),
-                            MainTitle(
-                              text: prov.startDate == null
-                                  ? '${prov.todayDate.day} - '
-                                      '${prov.todayDate.month} - '
-                                      '${prov.todayDate.year}'
-                                  : '${prov.startDate?.day} - '
-                                      '${prov.startDate?.month} - '
-                                      '${prov.startDate?.year}',
-                              fontSize: 16,
-                              weight: FontWeight.bold,
-                              color: mainColor,
-                            ),
-                          ],
+                        kwidth5,
+                        Container(
+                          width: MediaQuery.of(context).size.width / 3.5,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black45),
+                          ),
+                          child: Column(
+                            children: [
+                              const MainTitle(
+                                text: 'From',
+                                fontSize: 14,
+                                weight: FontWeight.bold,
+                              ),
+                              MainTitle(
+                                text: prov.startDate == null
+                                    ? '${prov.todayDate.day} - '
+                                        '${prov.todayDate.month} - '
+                                        '${prov.todayDate.year}'
+                                    : '${prov.startDate?.day} - '
+                                        '${prov.startDate?.month} - '
+                                        '${prov.startDate?.year}',
+                                fontSize: 16,
+                                weight: FontWeight.bold,
+                                color: mainColor,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                //  MainTitle(
-                //   text: prov.startDate == null ? '':'to',
-                //   fontSize: 15,
-                //   color: kBlack,
-                //   weight: FontWeight.bold,
-                // ),
+                  //  MainTitle(
+                  //   text: prov.startDate == null ? '':'to',
+                  //   fontSize: 15,
+                  //   color: kBlack,
+                  //   weight: FontWeight.bold,
+                  // ),
 
-                Container(
-                  width: MediaQuery.of(context).size.width / 3.5,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black45),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 3.5,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black45),
+                    ),
+                    child: Column(
+                      children: [
+                        const MainTitle(
+                          text: 'To',
+                          fontSize: 14,
+                          weight: FontWeight.bold,
+                        ),
+                        MainTitle(
+                          text: prov.startDate == null
+                              ? '${prov.tmrwDate.day} - '
+                                  '${prov.tmrwDate.month} - '
+                                  '${prov.tmrwDate.year}'
+                              : '${prov.endDate?.day} - '
+                                  '${prov.endDate?.month} - '
+                                  '${prov.endDate?.year}',
+                          fontSize: 16,
+                          color: mainColor,
+                          weight: FontWeight.bold,
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      const MainTitle(
-                        text: 'To',
-                        fontSize: 14,
-                        weight: FontWeight.bold,
-                      ),
-                      MainTitle(
-                        text: prov.startDate == null
-                            ? '${prov.tmrwDate.day} - '
-                                '${prov.tmrwDate.month} - '
-                                '${prov.tmrwDate.year}'
-                            : '${prov.endDate?.day} - '
-                                '${prov.endDate?.month} - '
-                                '${prov.endDate?.year}',
-                        fontSize: 16,
-                        color: mainColor,
-                        weight: FontWeight.bold,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
             kheight10,
             const MainTitle(
@@ -180,6 +187,15 @@ class BookingRoom extends StatelessWidget {
               ],
             ),
             kHeight15,
+            Visibility(
+              visible: roomProvider.isAvailable == true,
+              child: const MainTitle(
+                text: 'Confirm Your Payment',
+                fontSize: 20,
+                weight: FontWeight.w400,
+              ),
+            ),
+            kHeight15,
             Consumer<BookingProvider>(
               builder: (context, value, child) => value.isLoading == true
                   ? SizedBox(
@@ -197,7 +213,9 @@ class BookingRoom extends StatelessWidget {
                           height: 40,
                           child: ElevatedButton(
                             onPressed: () {
-                            value.isAvailable == false ?  Navigator.of(context).pop():SizedBox();
+                              value.isAvailable == false
+                                  ? Navigator.of(context).pop()
+                                  : SizedBox();
                             },
                             style: ElevatedButton.styleFrom(
                                 fixedSize: const Size(150, 30),
@@ -212,12 +230,14 @@ class BookingRoom extends StatelessWidget {
                           height: 40,
                           child: ElevatedButton(
                               onPressed: () {
-                          value.isAvailable == false ?      value.roomAvailabilityCheck(
-                                    context,
-                                    rooms.id.toString(),
-                                    prov.startDate!,
-                                    prov.endDate!,
-                                    prov.count) : Navigations.pop() ;
+                                value.isAvailable == false
+                                    ? value.roomAvailabilityCheck(
+                                        context,
+                                        rooms.id.toString(),
+                                        prov.startDate!,
+                                        prov.endDate!,
+                                        prov.count)
+                                    : Navigations.pop();
                               },
                               style: ElevatedButton.styleFrom(
                                   fixedSize: const Size(150, 30),

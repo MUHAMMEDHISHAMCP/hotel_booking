@@ -18,6 +18,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +51,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-      navigatorKey: Navigations.navigatorKey,
-      scaffoldMessengerKey: ShowDialogs.scaffoldMessengerKey,
-     theme: ThemeData(),
+        navigatorKey: Navigations.navigatorKey,
+        scaffoldMessengerKey: ShowDialogs.scaffoldMessengerKey,
+        theme: ThemeData(),
         home: const SplashScreen(),
       ),
     );

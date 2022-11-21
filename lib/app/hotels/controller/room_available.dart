@@ -36,6 +36,7 @@ class BookingProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       // Navigations.pop();
+    
       ShowDialogs.popUp(
         "Room Available",
         mainColor,
