@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_book/app/account/view/widgets/account_setting.dart';
+import 'package:hotel_book/app/account/view/widgets/booking_details.dart';
 import 'package:hotel_book/app/login/controller/login.dart';
 import 'package:hotel_book/app/login/view/loginpage.dart';
 import 'package:hotel_book/app/utils/colors.dart';
@@ -69,7 +70,9 @@ class AccountScreen extends StatelessWidget {
             AccountSettings(
               icon: const Icon(Icons.card_giftcard_sharp),
               title: 'My Bookings',
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => BookingDetials(),),);
+              },
             ),
             // const ListTile(
             //   leading: Icon(Icons.card_giftcard_sharp),

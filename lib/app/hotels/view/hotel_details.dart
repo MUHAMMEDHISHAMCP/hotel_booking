@@ -4,7 +4,6 @@ import 'package:hotel_book/app/home/model/room_model.dart';
 import 'package:hotel_book/app/hotels/controller/hotel_controller.dart';
 import 'package:hotel_book/app/hotels/controller/room_available.dart';
 import 'package:hotel_book/app/hotels/view/widgets/book_room.dart';
-import 'package:hotel_book/app/hotels/view/widgets/icon_widgets.dart';
 import 'package:hotel_book/app/hotels/view/widgets/more_detials.dart';
 import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/constheight.dart';
@@ -22,7 +21,7 @@ class HotelDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final prov = Provider.of<HotelController>(context);
-
+    context.read<BookingProvider>().initializeRazorPay();
     return Scaffold(
       backgroundColor: backgroundColor,
       body: NestedScrollView(
@@ -39,6 +38,7 @@ class HotelDetails extends StatelessWidget {
               weight: FontWeight.w500,
             ),
           ),
+          
         ],
         body: ListView(
           shrinkWrap: true,
@@ -47,7 +47,7 @@ class HotelDetails extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 2.5,
               child: PageView.builder(
-                physics: const BouncingScrollPhysics(),
+               // physics: const BouncingScrollPhysics(),
                 controller: controller,
                 itemCount: hotels.images!.first.length,
                 scrollDirection: Axis.horizontal,
@@ -70,13 +70,14 @@ class HotelDetails extends StatelessWidget {
                       ),
                     ),
 
-                    Positioned(
-                        right: 30,
-                        bottom: 30,
-                        child: IconWidgets(
-                          icon: Icons.favorite_outline,
-                          onTap: () {},
-                        )),
+                    // Positioned(
+                    //     right: 30,
+                    //     bottom: 30,
+                    //     child: IconWidgets(
+                    //       icon: Icons.favorite_outline,
+                    //       onTap: () {},
+                    //     )),
+
                     // Positioned(
                     //   right: 11,
                     //   top: MediaQuery.of(context).size.height / 6.5,
@@ -89,6 +90,7 @@ class HotelDetails extends StatelessWidget {
                     //     },
                     //   ),
                     // ),
+
                     // Positioned(
                     //   left: 10,
                     //   top: MediaQuery.of(context).size.height / 6.5,
@@ -172,14 +174,15 @@ class HotelDetails extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      hotels.roomNumber! <= 5
-                          ? MainTitle(
-                              text: 'Only ${hotels.roomNumber} rooms Available',
-                              fontSize: 15,
-                              color: Colors.red,
-                              weight: FontWeight.w400,
-                            )
-                          : const SizedBox(),
+                      Visibility(
+                        visible: hotels.roomNumber! <= 5,
+                        child: MainTitle(
+                          text: 'Only ${hotels.roomNumber} rooms Available',
+                          fontSize: 15,
+                          color: Colors.red,
+                          weight: FontWeight.w400,
+                        ),
+                      ),
                       Column(
                         children: [
                           const MainTitle(
@@ -368,20 +371,25 @@ class HotelDetails extends StatelessWidget {
             isScrollControlled: true,
           );
         },
-        child: Container(
-          height: 50,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-              color: mainColor,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-          child: const Center(
-              child: MainTitle(
-            text: 'Book Now',
-            fontSize: 20,
-            align: TextAlign.center,
-            weight: FontWeight.w700,
-          )),
+        child: Card(
+          elevation: 5,
+          color: mainColor,
+          child: Container(
+            height: 50,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+                color: mainColor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20))),
+            child: const Center(
+                child: MainTitle(
+              text: 'Book Now',
+              fontSize: 20,
+              align: TextAlign.center,
+              weight: FontWeight.w700,
+            )),
+          ),
         ),
       ),
     );

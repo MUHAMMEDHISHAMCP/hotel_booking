@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hotel_book/app/account/controller/setting_controller.dart';
 import 'package:hotel_book/app/home/controller/home_controller.dart';
 import 'package:hotel_book/app/home/controller/search_controller.dart';
 import 'package:hotel_book/app/hotels/controller/hotel_controller.dart';
@@ -8,17 +10,20 @@ import 'package:hotel_book/app/mobile_otp/controller/mobile_controller.dart';
 import 'package:hotel_book/app/mobile_otp/controller/mobile_otp_controller.dart';
 import 'package:hotel_book/app/signup/controller/signup.dart';
 import 'package:hotel_book/app/splash/view/splash_screen.dart';
+import 'package:hotel_book/app/utils/colors.dart';
 import 'package:hotel_book/app/utils/navigations.dart';
 import 'package:hotel_book/app/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: mainColor,
+  ));
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +52,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => BookingProvider(),
+        ),
+          ChangeNotifierProvider(
+          create: (context) => SettingsProvider(),
         ),
       ],
       child: MaterialApp(

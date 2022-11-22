@@ -65,7 +65,7 @@ class HomeProvider extends ChangeNotifier {
     }
 
     for (var i = 0; i < allRooms.length; i++) {
-      if (allRooms[i].category?.category?.toLowerCase().trim() == 'resorts') {
+      if (allRooms[i].category?.category?.toLowerCase().trim() == 'homestay') {
         allResorts.add(allRooms[i]);
         isLoading = false;
         notifyListeners();

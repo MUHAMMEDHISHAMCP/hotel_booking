@@ -16,7 +16,7 @@ class _BottomNavigationBarState extends State<BottomNav> {
 
   final screens = [
     const HomeScreen(),
-    const FavouriteScreen(),
+ //   const FavouriteScreen(),
     const AccountScreen(),
   ];
 
@@ -37,21 +37,21 @@ class _BottomNavigationBarState extends State<BottomNav> {
               selectedIndex = newIndex;
             });
           },
-          items: [
-            const BottomNavigationBarItem(
+          items: const [
+             BottomNavigationBarItem(
               backgroundColor: subColor,
               icon: Icon(Icons.home),
               label: 'Home',
             ),
         
-            BottomNavigationBarItem(
-              backgroundColor: subColor,
-              icon: selectedIndex == 1
-                  ? const Icon(Icons.favorite)
-                  : const Icon(Icons.favorite_border),
-              label: 'WishList',
-            ),
-            const BottomNavigationBarItem(
+            // BottomNavigationBarItem(
+            //   backgroundColor: subColor,
+            //   icon: selectedIndex == 1
+            //       ? const Icon(Icons.favorite)
+            //       : const Icon(Icons.favorite_border),
+            //   label: 'WishList',
+            // ),
+             BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_outlined),
               label: 'Account',
             )

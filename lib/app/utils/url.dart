@@ -1,5 +1,7 @@
 class Url {
-  static const String baseUrl = 'http://10.0.2.2:7000/';
+ // static const String baseUrl = 'http://10.0.2.2:7000/';
+    static const String baseUrl = 'https://hotellabooking.herokuapp.com/';
+
   static const String phoneSignIn = 'sendOtp';
   static const String otpVerify = 'otpVerify';
   static const String logIn = 'loginUser';
